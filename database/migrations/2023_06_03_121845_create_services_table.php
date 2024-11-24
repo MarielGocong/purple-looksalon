@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('benefits')->nullable();
             $table->string('aftercare_tips')->nullable();
             $table->string('cautions')->nullable();
-            $table->foreignId('job_category_id')->constrained();
             $table->boolean('status')->default(true);
 //            $table->integer('duration_minutes')->default(15)->nullable();
             $table->foreignId('category_id')->nullable()->index();
