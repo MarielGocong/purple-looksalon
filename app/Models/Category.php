@@ -14,4 +14,14 @@ class Category extends Model
     {
         return $this->hasMany(Service::class);
     }
+
+    public function equipments()
+    {
+        return $this->hasMany(Equipment::class);
+    }
+
+    public function supplies()
+    {
+        return $this->hasMany(Supply::class);
+    }
 }

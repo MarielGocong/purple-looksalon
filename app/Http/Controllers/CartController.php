@@ -3,24 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendAppointmentConfirmationMailJob;
+use App\Notifications\NewAppointmentNotification;
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\DB;
-use Ramsey\Collection\Collection;
+use Illuminate\Support\Collection;
 
 class CartController extends Controller
 {
     public function index()
     {
-        // get the cart of the user that is not paid
-        $cart = auth()->user()->cart()
-            ->where('is_paid', false)
-
-            ->first();
+        // Get the cart of the user that is not paid
+        $cart = auth()->user()->cart()->where('is_paid', false)->first();
         return view('web.cart', compact('cart'));
-
     }
 
-    public function removeItem($cart_service_id) {
+    public function removeItem($cart_service_id)
+    {
         // Get the cart of the user that is not paid
         $cart = auth()->user()->cart()->where('is_paid', false)->first();
 
@@ -29,14 +29,13 @@ class CartController extends Controller
             return redirect()->back();
         }
 
-        // get the cart_service with id = cart service id Raw query
-        $cart_service = DB::table('cart_service')->where('id', $cart_service_id)->where('cart_id', $cart->id)->get();
+        // Get the cart_service with id = cart_service_id
+        $cart_service = DB::table('cart_service')->where('id', $cart_service_id)->where('cart_id', $cart->id)->first();
 
         // If the cart service is not found, redirect back
         if (!$cart_service) {
             return redirect()->back();
         }
-
 
         // Delete the cart service
         DB::table('cart_service')->where('id', $cart_service_id)->where('cart_id', $cart->id)->delete();
@@ -48,7 +47,8 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function checkout() {
+    public function checkout()
+    {
         // Get the cart of the user that is not paid
         $cart = auth()->user()->cart()->where('is_paid', false)->first();
 
@@ -57,92 +57,76 @@ class CartController extends Controller
             return redirect()->back();
         }
 
-        $is_time_slots_available = true;
+        // Initialize flag to track employee availability
+        $is_employees_available = true;
 
-        // a data structure to hold the date and the unavailable time slots
-        $unavailable_time_slots = new Collection(
-           'array'
-        );
+        // Collection to hold unavailable employees info
+        $unavailable_employees = collect();
 
-        // check if the time slot is available
-        $cart->services->map(function ($service) use ($unavailable_time_slots, $cart, &$is_time_slots_available) {
-
+        // Loop over each service in the cart
+        foreach ($cart->services as $service) {
             $is_available = DB::table('appointments')
                 ->where('date', $service->pivot->date)
-                ->where('time_slot_id', $service->pivot->time_slot_id)
-                ->where('location_id', $service->pivot->location_id)
+                ->where('time', $service->pivot->time)
+                ->where('employee_id', $service->pivot->employee_id)
                 ->doesntExist();
 
-            // if the time slot is not available, redirect back
+            // If the time slot is not available, store the info and update the availability flag
             if (!$is_available) {
-                $is_time_slots_available = false;
-//                dd($service->pivot->date, $service->pivot->time_slot_id);
-                // get the start and end time of the time slot into variables
-                $start_time = DB::table('time_slots')->where('id', $service->pivot->time_slot_id)->value('start_time');
-                $end_time = DB::table('time_slots')->where('id', $service->pivot->time_slot_id)->value('end_time');
+                $is_employees_available = false;
 
-                // service name
+                $first_name = DB::table('employees')->where('id', $service->pivot->employee_id)->value('first_name');
                 $service_name = $service->name;
 
-                $unavailable_time_slots->add(
-                  [
-                        'service_name' => $service_name,
-                        'date' => $service->pivot->date,
-                        'start_time' => $start_time,
-                        'end_time' => $end_time,
-                        'location' => $service->pivot->location->name,
-                  ]
-                );
+                $unavailable_employees->push([
+                    'service_name' => $service_name,
+                    'date' => $service->pivot->date,
+                    'time' => $service->pivot->time,
+                    'first_name' => $first_name,
+                ]);
             }
-        });
-
-        // if the time slot is not available, redirect back
-        if (!$is_time_slots_available) {
-            // return with a session message
-
-            return redirect()->back()->with('unavailable_time_slots', $unavailable_time_slots);
         }
 
+        // If there are unavailable employees, return the error message
+        if (!$is_employees_available) {
+            return redirect()->back()->with('unavailable_employees', $unavailable_employees);
+        }
 
-        $cart->services->map(function ($service) use ($cart) {
-
-            $is_available = DB::table('appointments')
-                ->where('date', $service->pivot->date)
-                ->where('time_slot_id', $service->pivot->time_slot_id)
-                ->where('location_id', $service->pivot->location_id)
-                ->doesntExist();
-
-            // if the time slot is not available, redirect back
-            if (!$is_available) {
-                return redirect()->back();
-            }
-
-           Appointment::create([
+        // Create appointments for the available services
+        foreach ($cart->services as $service) {
+            Appointment::create([
                 'cart_id' => $cart->id,
                 'user_id' => $cart->user_id,
                 'service_id' => $service->id,
-                'time_slot_id' => $service->pivot->time_slot_id,
+                'time' => $service->pivot->time,
                 'date' => $service->pivot->date,
-                'start_time' => $service->pivot->start_time,
-                'end_time' => $service->pivot->end_time,
-                'location_id' => $service->pivot->location_id,
+                'first_name' => $service->pivot->first_name,
+                'employee_id' => $service->pivot->employee_id,
                 'total' => $service->pivot->price,
-           ]);
-        });
+            ]);
+        }
 
+        // Mark the cart as paid
         $cart->is_paid = true;
         $cart->save();
 
-        // get the appointments of the cart
+        // Send confirmation emails
         $appointments = Appointment::where('cart_id', $cart->id)->get();
         $customer = auth()->user();
+
         foreach ($appointments as $appointment) {
-            SendAppointmentConfirmationMailJob::dispatch( $customer , $appointment);
+            SendAppointmentConfirmationMailJob::dispatch($customer, $appointment);
         }
 
-        return redirect()->route('dashboard')->with('success', 'Your appointment has been booked successfully');
+        // Notify the admins
+        $admins = User::whereHas('role', function ($query) {
+            $query->where('name', 'Admin')->orWhere('name', 'Employee');
+        })->get();
 
+        foreach ($admins as $admin) {
+            $admin->notify(new NewAppointmentNotification($appointment));
+        }
+
+        return redirect()->route('customerview')->with('success', 'Your appointment has been booked successfully');
     }
-
-
 }

@@ -4,7 +4,7 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 z-50 sticky top-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sticky z-50">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between h-24">
             <div class="flex">
                 <!-- Logo -->
                @if(isset($mainLogoRoute))
@@ -34,6 +34,14 @@
                         {{ __('Home') }}
                     </x-nav-link>
 
+                    <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                        {{ __('About') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+                        {{ __('Contact') }}
+                    </x-nav-link>
+
                    <!-- Navigation Links for cust facing web-->
 
                     <x-web.navlinks />
@@ -45,73 +53,58 @@
 
                     <!-- Auth Navigation Links -->
                     @auth
+                    @if($userRole == 'Customer')
+                    <x-nav-link href="{{ route('customerview') }}" :active="request()->routeIs('dashboard/customer/view/appointment')">
+                        {{ __('My Appointment') }}
+                    </x-nav-link>
+                    @endif
+                    @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @else
-                    <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
-                        {{ __('Login') }}
-                    </x-nav-link>
 
-                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
-                        {{ __('Register') }}
-                    </x-nav-link>
+                    <div class="ml-3 relative" x-data="{ open: false }">
+                        <button @click="open = !open" @click.away="open = false" type="button" class="relative rounded-full p-1 text-gray-600 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <span class="sr-only">View notifications</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                            </svg>
+                            @if(auth()->user()->unreadNotifications->count() > 0)
+                                <span class="absolute top-0 right-0 inline-block w-3 h-3 rounded-full bg-red-600"></span>
+                            @endif
+                        </button>
+
+                        <div x-show="open" x-transition class="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div class="py-2">
+                                <p class="text-gray-700 px-4 py-2 font-semibold">Notifications</p>
+                                <hr class="my-2">
+
+                                @forelse(auth()->user()->unreadNotifications as $notification)
+                                    <a href="{{ route('notifications.redirectToAppointment', $notification->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ $notification->read_at ? '' : 'bg-blue-100' }}">
+                                        {{ $notification->data['message'] }}
+                                    </a>
+                                @empty
+                                    <p class="block px-4 py-2 text-sm text-gray-700">No new notifications</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
 
                     @endif
+                    @else
+
+                    <a href="{{ route('login') }}" class="text-salonPurple hover:text-white border border-salonPurple hover:bg-salonPurple focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-1 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Login</a>
+
+
+                    <a href="{{ route('register') }}" class="focus:outline-none text-white bg-salonPurple hover:bg-secondary focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-secondary dark:hover:bg-purple-700 dark:focus:ring-purple-900">Register</a>
+
+                    @endif
+
                 </div>
 
+
                 @auth
-                <!-- Teams Dropdown -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="ml-3 relative">
-                        <x-dropdown align="right" width="60">
-                            <x-slot name="trigger">
-                                <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                        {{ Auth::user()->currentTeam->name }}
 
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <div class="w-60">
-                                    <!-- Team Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
-                                    </div>
-
-                                    <!-- Team Settings -->
-                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Settings') }}
-                                    </x-dropdown-link>
-
-                                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                        <x-dropdown-link href="{{ route('teams.create') }}">
-                                            {{ __('Create New Team') }}
-                                        </x-dropdown-link>
-                                    @endcan
-
-                                    <!-- Team Switcher -->
-                                    @if (Auth::user()->allTeams()->count() > 1)
-                                        <div class="border-t border-gray-200"></div>
-
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('Switch Teams') }}
-                                        </div>
-
-                                        @foreach (Auth::user()->allTeams() as $team)
-                                            <x-switchable-team :team="$team" />
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
-                @endif
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -135,16 +128,13 @@
 
                         <x-slot name="content">
                             @if($userRole == 'Customer')
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Shop') }}
-                            </div>
+
                             <x-dropdown-link href="{{ route('cart') }}">
                                 {{ __('Cart') }}
                             </x-dropdown-link>
-                            <x-dropdown-link href="">
-                                {{ __('Booking') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="">
+                            <x-dropdown-link href="{{ route('customerview') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-secondary text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                            {{ request()->is('dashboard/customer/view/appointment') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
+                            ">
                                 {{ __('My Appointments') }}
                             </x-dropdown-link>
 
@@ -158,12 +148,6 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-dropdown-link>
-                            @endif
 
                             <div class="border-t border-gray-200"></div>
 
@@ -203,37 +187,73 @@
                 {{ __('Home') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="#">
+            <x-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                {{ __('About') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+                {{ __('Contact') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('services') }}" :active="request()->routeIs('services')">
                 {{ __('Services') }}
             </x-responsive-nav-link>
-
-            <x-responsive-nav-link href="#">
-                {{ __('Deals') }}
-            </x-responsive-nav-link>
-
-
-
-            @auth
-            @if($userRole == 'Admin')
-            <x-responsive-nav-link href="{{ route('manageusers') }}" :active="request()->routeIs('manageusers')">
-                {{ __('Manage Users') }}
-            </x-responsive-nav-link>
-            @endif
 
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-
-            @else
-            <x-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
-                {{ __('Login') }}
+            @if($userRole == 'Employee')
+            <x-responsive-nav-link href="{{ route('manageservices') }}" :active="request()->routeIs('manageservices')">
+                {{ __('Manage Services') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
-                {{ __('Register') }}
+            <x-responsive-nav-link href="{{ route('manageequipments') }}" :active="request()->routeIs('manageequipments')">
+                {{ __('Manage Equipments') }}
             </x-responsive-nav-link>
 
+            <x-responsive-nav-link href="{{ route('manageonlinesuppliers') }}" :active="request()->routeIs('manageonlinesuppliers')">
+                {{ __('Manage Supplies') }}
+            </x-responsive-nav-link>
             @endif
+
+            @if($userRole == 'Admin')
+            <x-responsive-nav-link href="{{ route('manageusers') }}" :active="request()->routeIs('manageusers')">
+                {{ __('Manage Users') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('manageappointments') }}" :active="request()->routeIs('manageappointments')">
+                {{ __('Manage Appointment') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('manageservices') }}" :active="request()->routeIs('manageservices')">
+                {{ __('Manage Services') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('managecategories') }}" :active="request()->routeIs('managecategories')">
+                {{ __('Manage Categories') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('manageemployees') }}" :active="request()->routeIs('manageemployees')">
+                {{ __('Manage Employees') }}
+            </x-responsive-nav-link>
+
+            <div class="pt-4 pb-1 border-t border-gray-200">
+                <x-responsive-nav-link href="{{ route('manageequipments') }}" :active="request()->routeIs('manageequipments')">
+                    {{ __('Manage Equipments') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link href="{{ route('manageonlinesuppliers') }}" :active="request()->routeIs('manageonlinesuppliers')">
+                    {{ __('Manage Supplies') }}
+                </x-responsive-nav-link>
+
+            </div>
+
+            <div class="pt-4 pb-1 border-t border-gray-200">
+
+            </div>
+            @endif
+
+
         </div>
 
         <!-- Responsive Settings Options -->
@@ -258,12 +278,6 @@
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 
-                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                        <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                            {{ __('API Tokens') }}
-                        </x-responsive-nav-link>
-                    @endif
-
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
@@ -274,38 +288,9 @@
                         </x-responsive-nav-link>
                     </form>
 
-                    <!-- Team Management -->
-                    @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                        <div class="border-t border-gray-200"></div>
 
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Manage Team') }}
-                        </div>
 
-                        <!-- Team Settings -->
-                        <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                            {{ __('Team Settings') }}
-                        </x-responsive-nav-link>
 
-                        @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                            <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                                {{ __('Create New Team') }}
-                            </x-responsive-nav-link>
-                        @endcan
-
-                        <!-- Team Switcher -->
-                        @if (Auth::user()->allTeams()->count() > 1)
-                            <div class="border-t border-gray-200"></div>
-
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Switch Teams') }}
-                            </div>
-
-                            @foreach (Auth::user()->allTeams() as $team)
-                                <x-switchable-team :team="$team" component="responsive-nav-link" />
-                            @endforeach
-                        @endif
-                    @endif
                 </div>
             @endif
         </div>

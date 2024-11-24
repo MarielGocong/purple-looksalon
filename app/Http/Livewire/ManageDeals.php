@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Deal;
 use Livewire\WithPagination;
+use App\Models\Service;
 // use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
 
@@ -12,12 +13,14 @@ class ManageDeals extends Component
 
 {
 
-    use withPagination;
+    use WithPagination;
 
 
     public $confirmingDealDeletion = false;
     public $confirmingDealAdd = false;
     public $confirmingDealEdit = false;
+
+    public $selectedServices = [];
 
     public $search;
 
@@ -53,8 +56,11 @@ class ManageDeals extends Component
             ->orderBy('start_date', 'desc')
             ->paginate(10);
 
+        $services = Service::all(); // Fetch all services
+
         return view('livewire.manage-deals', [
             'deals' => $deals,
+            'services' => $services, // Pass services to the view
         ]);
     }
 
@@ -75,40 +81,40 @@ class ManageDeals extends Component
     public function confirmDealAdd()
     {
 
-        $this->reset(['newDeal']);
+        $this->reset(['newDeal','selectedServices']);
         $this->confirmingDealAdd = true;
     }
 
     public function confirmDealEdit(Deal $newDeal)
     {
         $this->newDeal = $newDeal;
-
-        // using the same form for adding and editing
+        $this->selectedServices = $newDeal->services->pluck('id')->toArray(); // Load associated services
         $this->confirmingDealAdd = true;
     }
 
+
     public function saveDeal()
     {
-
         $this->validate();
 
         if (isset($this->newDeal->id)) {
             $this->newDeal->save();
+            $deal = $this->newDeal;
         } else {
-
-            Deal::create([
+            $deal = Deal::create([
                 'name' => $this->newDeal['name'],
                 'description' => $this->newDeal['description'],
-                'discount' => $this->newDeal['discount'],  // divide by 100 for the percentage
+                'discount' => $this->newDeal['discount'],
                 'start_date' => $this->newDeal['start_date'],
                 'end_date' => $this->newDeal['end_date'],
-                'is_hidden' => isset($this->newService['is_hidden']) ? $this->newService['is_hidden'] : false,
+                'is_hidden' => isset($this->newDeal['is_hidden']) ? $this->newDeal['is_hidden'] : false,
             ]);
         }
 
+        // Sync selected services
+        $deal->services()->sync($this->selectedServices);
 
         session()->flash('message', 'Deal successfully saved.');
-
         $this->confirmingDealAdd = false;
     }
 }

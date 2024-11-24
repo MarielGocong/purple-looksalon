@@ -12,6 +12,9 @@
             <div>
                 <x-label for="name" value="{{ __('Name') }}" />
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                @error('name')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
             </div>
 
             <div class="mt-4">
@@ -21,7 +24,7 @@
 
             <div class="mt-4">
                 <x-label for="phone_number" value="{{ __('Phone Number') }}" />
-                <span class="text-xs">eg: 0112121211</span>
+                <span class="text-xs">eg: 09123456789</span>
                 <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required autocomplete="phone_number" />
             </div>
 

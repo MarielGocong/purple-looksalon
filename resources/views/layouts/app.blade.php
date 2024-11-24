@@ -2,22 +2,24 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        {{-- <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,400;0,500;1,300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+        @vite(['resources/css/app.css','resources/js/app.js'])
 
         <!-- Styles -->
         @livewireStyles
@@ -27,7 +29,7 @@
 
         <div class="min-h-screen bg-gray-100">
             <x-navigation-menu>
-                
+
                 <!-- Pass the main logo from page to the nav menu component-->
                 <x-slot name="mainLogoRoute">
                     @isset($mainLogoRoute)
@@ -38,21 +40,10 @@
                 <!-- Pass the nav links from page to the nav menu component-->
                 <x-slot name="navlinks">
                     @isset($navlinks)
-                        {{ $navlinks }}             
+                        {{ $navlinks }}
                     @endif
             </x-slot>
             </x-navigation-menu>
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>

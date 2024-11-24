@@ -1,9 +1,18 @@
 <?php
 
+use App\Http\Controllers;
 use App\Enums\UserRolesEnum;
 use App\Models\Role;
+use App\Http\Controllers\UserSuspensionController;
+use App\Http\Controllers\DiscountCodeController;
+use App\Http\Controllers\DisplayContact;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\SalesReportController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +29,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomePageController::class, 'index'])->name('home');
 
+Route::get('/about',[App\Http\Controllers\DisplayAbout::class, 'about'])->name('about');
+
+Route::get('/contact', [App\Http\Controllers\DisplayContact::class, 'index'])->name('contact');
+Route::post('/contact/store', [App\Http\Controllers\DisplayContact::class, 'storeContact'])->name('contact.store');
 
 Route::get('/services', [App\Http\Controllers\DisplayService::class, 'index'])->name('services');
 Route::get('/services/{slug}', [App\Http\Controllers\DisplayService::class, 'show'])->name('view-service');
 
 // Route::get('/services/{id}', [App\Http\Controllers\ServiceDisplay::class, 'show'])->name('services.show');
 Route::get('/deals', [App\Http\Controllers\DisplayDeal::class, 'index'])->name('deals');
+Route::get('/deals/apply/{deal}', [App\Http\Controllers\DisplayDeal::class, 'showServices'])->name('showServices');
+
+Route::get('/test-pdf', function () {
+    $pdf = PDF::loadHTML('<h1>Test PDF</h1>');
+    return $pdf->download('test.pdf');
+});
+
 
 
 // Users needs to be logged in for these routes
@@ -35,8 +55,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
-    Route::prefix('dashboard')->group(function () {
-        Route::get('/', [App\Http\Controllers\DashboardHomeController::class, 'index'])->name('dashboard');
+
 
         // middleware to give access only for admin
         Route::middleware([
@@ -44,13 +63,34 @@ Route::middleware([
         ])->group(function () {
 
             Route::prefix('manage')->group( function () {
-                Route::resource('users', App\Http\Controllers\UserController::class)->name('index', 'manageusers');
-                Route::put('users/{id}/suspend', [App\Http\Controllers\UserSuspensionController::class, 'suspend'])->name('manageusers.suspend');
-                Route::put('users/{id}/activate', [App\Http\Controllers\UserSuspensionController::class, 'activate'])->name('manageusers.activate');
+                Route::resource('users', UserController::class)->names([
+                    'index' => 'manageusers',         // GET /users (index)
+                    'store' => 'manageusers.store',   // POST /users (store)
+                    'create' => 'manageusers.create', // GET /users/create (create)
+                    'edit' => 'manageusers.edit',     // GET /users/{id}/edit (edit)
+                    'update' => 'manageusers.update', // PUT /users/{id} (update)
+                    'destroy' => 'manageusers.destroy'// DELETE /users/{id} (destroy)
+                ]);
+                Route::put('users/{id}/suspend', [UserSuspensionController::class, 'suspend'])->name('manageusers.suspend');
+                Route::put('users/{id}/activate', [UserSuspensionController::class, 'activate'])->name('manageusers.activate');
 
-                Route::get('locations', function () {
-                    return view('dashboard.manage-locations.index');
-                })->name('managelocations');
+                Route::get('/dashboard/manage/contact', [DisplayContact::class, 'contact'])->name('managecontact');
+
+
+                Route::get('employees', function () {
+                    return view('dashboard.manage-employees.index');
+                })->name('manageemployees');
+
+                Route::get('admin/discount_code/list',[DiscountCodeController::class,'list'])->name('managediscountocodes');
+                Route::get('admin/discount_code/add',[DiscountCodeController::class, 'add'])->name('managediscountcode.add');
+                Route::post('admin/discount_code/add',[DiscountCodeController::class, 'insert'])->name('managediscountcode.insert');
+                Route::get('admin/discount_code/edit/{$id}',[DiscountCodeController::class, 'edit'])->name('managediscountcode.edit');
+                Route::post('admin/discount_code/edit/{$id}',[DiscountCodeController::class, 'update'])->name('managediscountcode.update');
+                Route::get('admin/discount_code/delete/{$id}',[DiscountCodeController::class, 'delete'])->name('managediscountcode.delete');
+
+
+
+
             });
 
 
@@ -62,6 +102,35 @@ Route::middleware([
             'validateRole:Admin,Employee'
         ])->group(function () {
 
+
+            Route::post('/notifications/mark-as-read/{id}', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
+            Route::get('/notifications/redirect/{id}', [App\Http\Controllers\NotificationController::class, 'redirectToAppointment'])->name('notifications.redirectToAppointment');
+
+            Route::prefix('dashboard')->group(function () {
+                Route::get('/', [App\Http\Controllers\DashboardHomeController::class, 'index'])->name('dashboard');
+            });
+
+            Route::get('/admin/reports/top-customers', [App\Http\Controllers\AdminDashboardHomeController::class, 'index']);
+
+            Route::get('/admin/reports/sales-by-category', [App\Http\Controllers\AdminDashboardHomeController::class, 'downloadSalesReport']);
+
+            Route::get('/daily-report', [SalesReportController::class, 'dailyReport'])->name('daily.report');
+            Route::get('/daily-report/pdf', [SalesReportController::class, 'downloadPDF'])->name('daily.report.pdf');
+
+            Route::get('/weekly-report', [SalesReportController::class, 'weeklyReport'])->name('weekly.report');
+            Route::get('/weekly-report/pdf', [SalesReportController::class, 'downloadWeeklyPDF'])->name('weekly.report.pdf');
+
+            Route::get('/monthly-report', [SalesReportController::class, 'monthlyReport'])->name('monthly.report');
+            Route::get('/monthly-report/pdf', [SalesReportController::class, 'downloadMonthlyPDF'])->name('monthly.report.pdf');
+
+            Route::get('/quarterly-report', [SalesReportController::class, 'quarterlyReport'])->name('quarterly.report');
+            Route::get('/quarterly-report/pdf', [SalesReportController::class, 'downloadQuarterlyPDF'])->name('quarterly.report.pdf');
+
+            Route::get('/annual-report', [SalesReportController::class, 'annualReport'])->name('annual.report');
+            Route::get('/annual-report/pdf', [SalesReportController::class, 'downloadAnnualPDF'])->name('annual.report.pdf');
+
+
             Route::prefix('manage')->group( function () {
                 Route::get('services', function () {
                     return view('dashboard.manage-services.index');
@@ -71,17 +140,51 @@ Route::middleware([
                     return view('dashboard.manage-deals.index');
                 })->name('managedeals');
 
+                Route::get('concerns', function () {
+                    return view('livewire.manage-concern');
+                })->name('manageconcerns');
+
+                Route::get('holidays', function () {
+                    return view('dashboard.manage-holidays.index');
+                })->name('manageholidays');
+
                 Route::get('categories', function () {
                     return view('dashboard.manage-categories.index');
                 })->name('managecategories' );
 
-                Route::get('categories/create', function () {
-                    return view('dashboard.manage-categories.index');
-                })->name('managecategories.create');
+                Route::get('equipments', function () {
+                    return view('dashboard.manage-equipments.index');
+                })->name('manageequipments' );
 
                 Route::get('appointments', function () {
                     return view('dashboard.manage-appointments.index');
                 })->name('manageappointments');
+
+                Route::get('onlinesupplier', function () {
+                    return view('dashboard.manage-online-suppliers.index');
+                })->name('manageonlinesuppliers');
+
+                Route::get('supplies', function () {
+                    return view('dashboard.manage-supplies.index');
+                })->name('managesupplies');
+
+                Route::get('jobcategories', function () {
+                    return view('dashboard.manage-job-categories.index');
+                })->name('managejobcategories' );
+
+                Route::get('jobcategories/create', function () {
+                    return view('dashboard.manage-job-categories.index');
+                })->name('managejobcategories.create');
+
+                Route::get('sales-report', function(){
+                    return view('dashboard.sales-report.index');
+                })->name('salesreport');
+
+
+
+
+
+
             } );
 
 
@@ -113,12 +216,16 @@ Route::middleware([
             'validateRole:Customer'
         ])->group(function () {
 
-            Route::prefix('cart')->group( function () {
+            Route::prefix('customer')->group( function () {
                 Route::get('/', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
                 Route::post('/', [App\Http\Controllers\CartController::class, 'store'])->name('cart.store');
                 Route::delete('/item/{cart_service_id}', [App\Http\Controllers\CartController::class, 'removeItem'])->name('cart.remove-item');
                 Route::delete('/{id}', [App\Http\Controllers\CartController::class, 'destroy'])->name('cart.destroy');
                 Route::post('/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name('cart.checkout');
+
+                Route::get('customer-appointment', function () {
+                    return view('dashboard.customer-view-appointment.index');
+                })->name('customerview');
             });
 
 
@@ -136,4 +243,3 @@ Route::middleware([
 
         });
     });
-});

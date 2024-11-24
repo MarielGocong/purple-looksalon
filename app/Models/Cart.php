@@ -27,12 +27,8 @@ class Cart extends Model
     {
         return $this
             ->belongsToMany(Service::class)
-            ->with('locations')
-            ->withPivot('id','time_slot_id','date', 'start_time', 'end_time', 'location_id' , 'price');
-
+            ->withPivot('id', 'employee_id' ,'date','time', 'first_name',  'price');
     }
-
-
 
     protected static function booted()
     {

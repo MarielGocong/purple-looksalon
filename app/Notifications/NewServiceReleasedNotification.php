@@ -27,15 +27,15 @@ class NewServiceReleasedNotification extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject( $this->service->name . ' now available at Salon Bliss!')
-            ->from('info@salonbliss.com')
+            ->subject( $this->service->name . ' now available at Purple Look Hair Salon and Spa !')
+            ->from('info@purplelooksalonadnspa.com')
             ->greeting('Hello ' . $notifiable->name . '!')
             ->line('Big News! 🎉')
             ->line('Introducing ' . $this->service->name . ' - our latest service!')
-            ->line('✨ Priced at LKR ' .  number_format($this->service->price, 2, '.', ',') . ' ✨')
+            ->line('✨ Priced at PHP ' .  number_format($this->service->price, 2, '.', ',') . ' ✨')
             ->line('💆‍♀️ The benefits: ' . $this->service->benefits)
             ->action('Book Now', url('/services/' . $this->service->slug))
-            ->line('Thank you for choosing Salon Bliss!');
+            ->line('Thank you for choosing Purple Look Hair Salon and Spa!');
     }
 
     public function toArray($notifiable): array

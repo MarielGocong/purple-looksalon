@@ -50,18 +50,16 @@ class ManageAppointments extends Component
 
     public function render()
     {
-        $query = Appointment::with('timeSlot', 'user', 'service', 'location');
+        $query = Appointment::with( 'user', 'service');
         if ($this->search) {
             $query->where(function ($subQuery) {
                 $subQuery
                     ->where('date', 'like', '%' . $this->search . '%')
                     ->orWhere('appointment_code', 'like', '%' . $this->search . '%')
-                    ->orWhere('start_time', 'like', '%' . $this->search . '%')
-                    ->orWhere('end_time', 'like', '%' . $this->search . '%')
+                    ->orWhere('time', 'like', '%' . $this->search . '%')
+                    ->orWhere('first_name', 'like', '%' . $this->search . '%')
                     ->orWhere('status', 'like', '%' . $this->search . '%')
-                    ->orWhere('service_id', 'like', '%' . $this->search . '%')
-                    ->orWhere('time_slot_id', 'like', '%' . $this->search . '%')
-                    ->orWhere('location_id', 'like', '%' . $this->search . '%');
+                    ->orWhere('service_id', 'like', '%' . $this->search . '%');
             });
 
             $query->orWhereHas('user', function ($userQuery) {
@@ -74,12 +72,6 @@ class ManageAppointments extends Component
                 $serviceQuery->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%')
                     ->orWhere('category_id', 'like', '%' . $this->search . '%');
-            });
-
-            $query->orWhereHas('location', function ($locationQuery) {
-                $locationQuery->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('address', 'like', '%' . $this->search . '%')
-                    ->orWhere('telephone_number', 'like', '%' . $this->search . '%');
             });
         }
 
@@ -97,13 +89,14 @@ class ManageAppointments extends Component
 
         } else if ($this->selectFilter === 'cancelled') {
             $query->where('status', 0);
+        } else if ($this->selectFilter === 'completed') {
+            $query->where('status',2);
         }
 
 
         $this->appointments = $query
             ->orderBy('date')
-            ->orderBy('start_time')
-            ->paginate(10);
+            ->paginate(20);
 //        dd($this->appointments);
 
         return view('livewire.manage-appointments', [
@@ -112,32 +105,11 @@ class ManageAppointments extends Component
     }
 
 
-
-
-//    public function confirmAppointmentEdit(Appointment $appointment) {
-//        $this->appointment = $appointment;
-//        $this->confirmingAppointmentAdd= true;
-//    }
     public function confirmAppointmentCancellation() {
         $this->confirmingAppointmentCancellation = true;
     }
 
-//    public function saveAppointment() {
-//        $this->validate();
-//
-//        if (isset($this->appointment->id)) {
-//            $this->appointment->save();
-//        } else {
-//            Appointment::create(
-//                [
-//                    'name' => $this->appointment['name'],
-//                ]
-//            );
-//        }
-//
-//        $this->confirmingAppointmentAdd = false;
-//        $this->appointment = null;
-//    }
+
 
     public function cancelAppointment(Appointment $appointment)
     {
@@ -155,8 +127,31 @@ class ManageAppointments extends Component
         }
     }
 
-//    public function confirmAppointmentAdd() {
-//        $this->confirmingAppointmentAdd = true;
-//    }
+    public function markAsRead($notificationId)
+    {
+        $notification = auth()->user()->notifications()->find($notificationId);
+        if ($notification) {
+            $notification->markAsRead();
+            $this->emit('notificationRead'); // Emit an event to update the notification count
+        }
+    }
+
+    public function completeAppointment($appointmentId)
+{
+    $appointment = Appointment::find($appointmentId);
+
+    if ($appointment) {
+        $appointment->status = 2;
+        $appointment->save();
+
+        session()->flash('message', 'Appointment marked as completed.');
+
+        // Refresh the list of appointments
+        $this->appointments = Appointment::where('status', $this->selectFilter)->get();
+    } else {
+        session()->flash('error', 'Appointment not found.');
+    }
+}
+
 
 }

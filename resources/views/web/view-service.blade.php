@@ -34,19 +34,19 @@
                     <section aria-labelledby="information-heading" class="mt-2">
                         <h3 id="information-heading" class="sr-only">Product information</h3>
 
-                        <p class="text-2xl text-gray-900">LKR {{ number_format($service->price, 2, '.', ',') }}
+                        <p class="text-2xl text-gray-900">PHP {{ number_format($service->price, 2, '.', ',') }}
                         </p>
 
 
                             @if (Auth::user()?->role_id == 1 || Auth::user()?->role_id == 2)
 
                             <a href="{{ route('manageservices') }}?search={{ $service->slug }}">
-                                <x-button class="px-5 py-2 text-white bg-pink-500 rounded-md hover:bg--600">
+                                <x-button class="px-5 py-2 text-white bg-purple-500 rounded-md hover:bg--600">
                                     Manage
                                 </x-button>
                             </a>
 
-                                <div class="bg-gray-100 px-3 py-2 my-2 ">
+                                <div class="bg-gray-100 px-3 py-2 my-2  over-flow-auto">
                                     <span class="font-semibold"> Analytics insights </span>
 
 {{--                                    'appointmentsTotal' => $appointmentsTotal,--}}
@@ -124,7 +124,7 @@
                                         </tr>
                                         <tr>
                                             <td class="border p-2">Revenue</td>
-                                            <td class="border p-2"> LKR {{ number_format($totalRevenueLastWeek, 2, '.', ',') }}</td>
+                                            <td class="border p-2"> PHP {{ number_format($totalRevenueLastWeek, 2, '.', ',') }}</td>
                                             <td class="border p-2">
                                                 @if($percentageRevenueChangeLastWeek === 'N/A')
                                                     {{ $percentageRevenueChangeLastWeek }}
@@ -134,11 +134,11 @@
                                                     <span class="text-red-800"><span class="text-2xl">↓</span> {{ $percentageRevenueChangeLastWeek }} %</span>
                                                 @endif
                                             </td>
-                                            <td class="border p-2">LKR {{ number_format($totalRevenue, 2, '.', ',') }}</td>
+                                            <td class="border p-2">PHP {{ number_format($totalRevenue, 2, '.', ',') }}</td>
                                         </tr>
                                         <tr>
                                             <td class="border p-2">Revenue (Last Month)</td>
-                                            <td class="border p-2">LKR {{ number_format($totalRevenueLastMonth, 2, '.', ',') }}</td>
+                                            <td class="border p-2">PHP {{ number_format($totalRevenueLastMonth, 2, '.', ',') }}</td>
                                             <td class="border p-2">
                                                 @if($percentageRevenueChangeLastMonth === 'N/A')
                                                     {{ $percentageRevenueChangeLastMonth }}
@@ -164,13 +164,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach ($timeSlotsStatsLastWeek as $timeSlotStat)
-                                                <tr>
 
-                                                    <td class="border p-2">{{ date('g:i a', strtotime($timeSlotStat['time_slot']->start_time))  . ' - ' .  date('g:i a', strtotime($timeSlotStat['time_slot']->end_time)) }}</td>
-                                                    <td class="border p-2">{{ $timeSlotStat['count'] }}</td>
-                                                </tr>
-                                            @endforeach
                                             </tbody>
                                         </table>
 
@@ -187,12 +181,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach ($timeSlotsStats as $timeSlotStat)
-                                                <tr>
-                                                    <td class="border p-2">{{ date('g:i a', strtotime($timeSlotStat['time_slot']->start_time))  . ' - ' .  date('g:i a', strtotime($timeSlotStat['time_slot']->end_time)) }}</td>
-                                                    <td class="border p-2">{{ $timeSlotStat['count'] }}</td>
-                                                </tr>
-                                            @endforeach
+                                           
                                             </tbody>
                                         </table>
                                     </div>
@@ -203,32 +192,7 @@
 
                                     @endif
 
-                        <!-- Reviews -->
-                        {{--                    <div class="mt-6">--}}
-                        {{--                        <h4 class="sr-only">Reviews</h4>--}}
-                        {{--                        <div class="flex items-center">--}}
-                        {{--                            <div class="flex items-center">--}}
-                        {{--                                <!-- Active: "text-gray-900", Default: "text-gray-200" -->--}}
-                        {{--                                <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
-                        {{--                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />--}}
-                        {{--                                </svg>--}}
-                        {{--                                <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
-                        {{--                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />--}}
-                        {{--                                </svg>--}}
-                        {{--                                <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
-                        {{--                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />--}}
-                        {{--                                </svg>--}}
-                        {{--                                <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
-                        {{--                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />--}}
-                        {{--                                </svg>--}}
-                        {{--                                <svg class="text-gray-200 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
-                        {{--                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />--}}
-                        {{--                                </svg>--}}
-                        {{--                            </div>--}}
-                        {{--                            <p class="sr-only">3.9 out of 5 stars</p>--}}
-                        {{--                            <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117 reviews</a>--}}
-                        {{--                        </div>--}}
-                        {{--                    </div>--}}
+
                     </section>
                     <section>
                         <div class="mt-6">
@@ -289,79 +253,9 @@
                         </section>
                     @endif
 
+
                     <livewire:adding-service-to-cart :service="$service"/>
-{{--                    <section class="mt-10">--}}
-{{--                        <h3 class="text-xl font-medium my-2">Book Your Appointment</h3>--}}
 
-{{--                        <form>--}}
-{{--                            <!-- Colors -->--}}
-{{--                            <div>--}}
-{{--                                <h4 class="text-lg font-medium text-gray-900">Select a date</h4>--}}
-{{--                                <fieldset>--}}
-{{--                                    <input type="date" class="rounded py-2 px-4 borde   r">--}}
-{{--                                </fieldset>--}}
-{{--                            </div>--}}
-
-{{--                            <!-- Sizes -->--}}
-{{--                            <div class="mt-5">--}}
-{{--                                <h4 class="text-sm font-medium text-gray-900">Time Slots</h4>--}}
-{{--                                <fieldset class="mt-4">--}}
-{{--                                    <legend class="sr-only">Select a time</legend>--}}
-{{--                                    <div class="grid grid-cols-3 gap-4" x-data="{ selectedTimeSlot: null }">--}}
-{{--                                        @foreach($timeSlots as $timeSlot)--}}
-{{--                                            @if($timeSlot->id != 5)--}}
-
-{{--                                                <label--}}
-{{--                                                    class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase  focus:outline-none sm:flex-1 cursor-pointer shadow-sm"--}}
-{{--                                                    x-bind:class="{--}}
-{{--                                                            'bg-pink-500 text-white ': selectedTimeSlot === '{{ $timeSlot->id }}',--}}
-{{--                                                            'bg-gray-50 text-gray-800 hover:bg-pink-100': selectedTimeSlot !== '{{ $timeSlot->id }}',--}}
-{{--                                                        }"--}}
-{{--                                                >--}}
-{{--                                                    <input type="radio" name="time-slot-choice"--}}
-{{--                                                           value="{{ $timeSlot->id }}" class="sr-only"--}}
-{{--                                                           aria-labelledby="size-choice-{{ $timeSlot->id }}-label"--}}
-{{--                                                           x-model="selectedTimeSlot">--}}
-{{--                                                        <span id="time-slot-choice-{{ $timeSlot->id }}-label">--}}
-{{--                                                            {{ date('g:i a', strtotime($timeSlot->start_time)) }}--}}
-{{--                                                            ---}}
-{{--                                                            {{ date('g:i a', strtotime($timeSlot->end_time)) }}--}}
-{{--                                                        </span>--}}
-{{--                                                    <span class="pointer-events-none absolute -inset-px rounded-md"--}}
-{{--                                                          aria-hidden="true"></span>--}}
-{{--                                                </label>--}}
-{{--                                            @else--}}
-{{--                                                <label--}}
-{{--                                                    class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-not-allowed bg-gray-50 text-gray-200">--}}
-{{--                                                    <input type="radio" name="time-slot-choice"--}}
-{{--                                                           value="{{ $timeSlot->id }}" disabled class="sr-only"--}}
-{{--                                                           aria-labelledby="size-choice-7-label">--}}
-{{--                                                    <span id="size-choice-7-label">--}}
-{{--                                                        {{ date('g:i a', strtotime($timeSlot->start_time)) }}--}}
-{{--                                                        ---}}
-{{--                                                        {{ date('g:i a', strtotime($timeSlot->end_time)) }}--}}
-{{--                                                    </span>--}}
-{{--                                                    <span aria-hidden="true"--}}
-{{--                                                          class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">--}}
-{{--                                                        <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100"--}}
-{{--                                                             preserveAspectRatio="none" stroke="currentColor">--}}
-{{--                                                            <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke"/>--}}
-{{--                                                        </svg>--}}
-{{--                                                    </span>--}}
-{{--                                                </label>--}}
-{{--                                            @endif--}}
-{{--                                        @endforeach--}}
-{{--                                    </div>--}}
-
-{{--                            </fieldset>--}}
-{{--                </div>--}}
-
-{{--                <button type="submit"--}}
-{{--                        class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">--}}
-{{--                    Add to bag--}}
-{{--                </button>--}}
-{{--                </form>--}}
-{{--                </section>--}}
             </div>
         </div>
     </div>

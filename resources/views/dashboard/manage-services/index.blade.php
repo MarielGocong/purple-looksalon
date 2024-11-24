@@ -1,8 +1,8 @@
 <x-dashboard>
-   
-  
 
 
+
+    
    <livewire:manage-services />
 
 

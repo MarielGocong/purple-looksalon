@@ -62,13 +62,7 @@ return [
     |
     */
 
-    'home' => function () {
-        if (Auth::user()->role()->first()->name == 'Admin' || Auth::user()->role()->first()->name == 'Employee') {
-            return RouteServiceProvider::DASHBOARD;
-        } else {
-            return RouteServiceProvider::HOME;
-        }
-    },
+    'home' => RouteServiceProvider::HOME,
 
     /*
     |--------------------------------------------------------------------------
@@ -141,7 +135,7 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([

@@ -33,12 +33,16 @@ class Service extends Model
 //        'duration_minutes',
         'category_id',
         'is_hidden',
+        'employee_id',
+        'job_category_id',
+        'status',
     ];
 
     protected $casts = [
         'is_hidden' => 'boolean',
-        'start_time' => 'time',
-        'end_time' => 'time',
+        'status' => 'boolean',
+        'first_name' => 'string',
+
     ];
 
     // is visible
@@ -72,11 +76,17 @@ class Service extends Model
     {
         return $this->hasMany(Appointment::class);
     }
-    public function locations()
+
+    public function employees()
     {
-        return $this->belongsToMany(Location::class, 'cart_service')
-            ->withPivot('location_id');
+        return $this->belongsToMany(Employee::class, 'employee_service');
     }
+
+    public function jobCategory()
+    {
+        return $this->belongsTo(JobCategory::class);
+    }
+
 
     protected static function booted()
     {

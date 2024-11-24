@@ -1,8 +1,9 @@
-<div>
-    <div class="flex justify-between mx-7">
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200  mt-2">
+        <div class="flex justify-between mx-7">
         <h2 class="text-2xl font-bold">Services</h2>
 
-        <x-button wire:click="confirmServiceAdd"  class="px-5 py-2 text-white bg-pink-500 rounded-md hover:bg--600">
+        <x-button wire:click="confirmServiceAdd"  class="px-5 py-2 text-white bg-purple-500 rounded-md hover:bg--600">
             Create
         </x-button>
     </div>
@@ -15,6 +16,8 @@
     </div>
 
 
+
+
     <div class="overflow-auto rounded-lg border border-gray-200 shadow-md m-5">
         <div class="w-1/3 float-right m-4">
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
@@ -25,22 +28,36 @@
                     </svg>
                 </div>
                 <input type="search" wire:model="search" id="default-search" name="search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search Services...">
-                <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+                <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
             </div>
         </div>
+
+        <select wire:model="statusFilter" class="form-select">
+            <option value="all">All Employees</option>
+            <option value="active">Active Employees</option>
+            <option value="archived">Archived Employees</option>
+        </select>
+
+        <select wire:model="categoryFilter" class="form-select me-3">
+            <option value="">All Categories</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+
 
         <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 overflow-x-scroll min-w-screen">
           <thead class="bg-gray-50">
             <tr>
               <th scope="col" class="pl-6 py-4 font-medium text-gray-900">Id</th>
               <th scope="col" class="px-4 py-4 font-medium text-gray-900">Service</th>
-              <th scope="col" class="px-6 py-4 font-medium text-gray-900">Photo</th>
+              <th scope="col" class="px-8 py-4 font-medium text-gray-900">Photo</th>
               <th scope="col" class="px-6 py-4 font-medium text-gray-900">Description</th>
               <th scope="col" class="px-6 py-4 font-medium text-gray-900">Price</th>
               <th scope="col" class="px-6 py-4 font-medium text-gray-900">Category</th>
+              <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
               <th scope="col" class="px-6 py-4 font-medium text-gray-900">Visibility</th>
               <th scope="col" class="px-6 py-4 font-medium text-gray-900">Actions</th>
-              <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100 border-t border-gray-100">
@@ -54,7 +71,7 @@
                     <div class="font-medium text-gray-700">{{ $service->name}}</div>
 
                 </th>
-                <td class="px-6 py-4  max-w-0">
+                <td class="px-8 py-4  max-w-0">
                     <div class="font-medium text-gray-700">
                         <img src="{{ asset('storage/' . $service->image) }}" alt="" class="w-20 h-20 object-cover">
                     </div>
@@ -69,6 +86,8 @@
 {{--                    @dd($service->category->name)--}}
                     <div class="font-medium text-gray-700">{{ $service->category?->name}}</div>
                 </td>
+                <td>{{ $service->status ? 'Active' : 'Archived' }}</td>
+
                 <td class="px-6 py-4 ">
                     <div>
 
@@ -92,28 +111,46 @@
                 </td>
                 <td>
                     <div class="mt-5 ">
-                        <a href="{{ route('view-service', ['slug' => $service->slug ])  }}">
-                            <x-button>
-                                {{ __('View') }}
-                            </x-button>
+                        <a href="{{ route('view-service', ['slug' => $service->slug ])  }}" >
+                            <button class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 rounded-lg text-xs px-4 py-2 inline-flex items-center me-1 mb-2">
+                                <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                  </svg>
 
+                                View
+                            </button>
                         </a>
-                        <x-button wire:click="confirmServiceEdit({{ $service->id }})" wire:loading.attr="disabled">
-                            {{ __('Edit') }}
-                        </x-button>
-                        <x-danger-button wire:click="confirmServiceDeletion({{ $service->id }})" wire:loading.attr="disabled">
-                            {{ __('Delete') }}
-                        </x-danger-button>
+                        <button wire:click="confirmServiceEdit({{ $service->id }})" wire:loading.attr="disabled" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80  rounded-lg text-xs px-4 py-2 inline-flex items-center me-1 mb-2">
+                            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                              </svg>
+                            Edit
+                        </button>
 
 
 
-{{--                        <x-button href="">--}}
-{{--                            <svg width="20" height="20" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">                                <path d="M9.00977 21.39H19.0098C20.0706 21.39 21.0881 20.9685 21.8382 20.2184C22.5883 19.4682 23.0098 18.4509 23.0098 17.39V7.39001C23.0098 6.32915 22.5883 5.31167 21.8382 4.56152C21.0881 3.81138 20.0706 3.39001 19.0098 3.39001H7.00977C5.9489 3.39001 4.93148 3.81138 4.18134 4.56152C3.43119 5.31167 3.00977 6.32915 3.00977 7.39001V12.39" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                                <path d="M1.00977 18.39H11.0098" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                                <path d="M1.00977 15.39H5.00977" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                                <path d="M22.209 5.41992C16.599 16.0599 9.39906 16.0499 3.78906 5.41992" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                                <script xmlns=""/></svg>--}}
-{{--                        </x-button>--}}
+                        @if($service->status == 1)  <!-- Active employee -->
+                        <button wire:click="archiveService({{ $service->id }})" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80  rounded-lg text-xs px-4 py-2 inline-flex items-center me-1 mb-2">
+                            <svg class="w-4 h-4 me-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                              </svg>
+
+                            Archive
+                        </button>
+                    @else  <!-- Archived employee -->
+                        <button wire:click="unarchiveService({{ $service->id }})" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80  rounded-lg text-xs px-4 py-2 inline-flex items-center me-1 mb-2">
+                            <svg class="w-4 h-4 me-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m6 4.125 2.25 2.25m0 0 2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                              </svg>
+
+                            Unarchive
+                        </button>
+                    @endif
+
+
+
+
                     </div>
                 </td>
             </tr>
@@ -127,12 +164,22 @@
 
 
 
+
+
         <x-dialog-modal wire:model="confirmingServiceDeletion">
+
             <x-slot name="title">
                 {{ __('Delete Service') }}
             </x-slot>
 
             <x-slot name="content">
+                <div class="mt-4">
+                    @if (session()->has('error'))
+                        <div class="px-4 py-2 text-white bg-red-500 rounded-md">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                </div>
                 {{ __('Are you sure you want to delete the service?') }}
 
             </x-slot>
@@ -152,6 +199,9 @@
         </x-dialog-modal>
 
 
+
+
+
         <x-dialog-modal wire:model="confirmingServiceAdd">
             <x-slot name="title">
                 {{-- {{ __('Add a new service') }} --}}
@@ -159,7 +209,13 @@
             </x-slot>
 
             <x-slot name="content">
-
+                @if (session()->has('error'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+                    <span>
+                    {{ session('error') }}
+                    </span>
+                </div>
+                @endif
 
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
@@ -192,21 +248,6 @@
                                 @error('newService.category_id') <span class="text-red-500">{{ $message }}</span>@enderror
                             </select>
                         </div>
-
-{{--                        <div>--}}
-{{--                            <label for="duration_minutes" class="block text-sm font-medium text-gray-700">Duration</label>--}}
-
-{{--                            <select wire:model="newService.duration_minutes" id="duration_minutes" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">--}}
-
-{{--                                    <option disabled selected value="">Select Duration</option>--}}
-{{--                                    @for ($hours = 0; $hours <= 3; $hours++)--}}
-{{--                                        @for ($minutes = 15; $minutes <= 45; $minutes += 15)--}}
-{{--                                            <option value="{{ ($hours * 60) + $minutes }}">{{ $hours > 0 ? $hours . 'h ' : '' }}{{ $minutes }} min</option>--}}
-{{--                                        @endfor--}}
-{{--                                    @endfor--}}
-{{--                                @error('newService.duration_minutes') <span class="text-red-500">{{ $message }}</span>@enderror--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
                     </div>
                 <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                     <div>
@@ -241,6 +282,33 @@
                         <textarea id="notes" wire:model="newService.notes"  class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         @error('newService.notes') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
+                    <div class="mt-4">
+                        <label for="job-category" class="block text-sm font-medium text-gray-700">Job Category</label>
+                        <select id="job-category" wire:model="newService.job_category_id" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm">
+                            <option value="">Select a job category</option>
+                            @foreach($jobCategories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('newService.job_category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mt-4">
+                        <label for="employees" class="block text-sm font-medium text-gray-700">Assign Employees</label>
+                        <div id="employees" class="mt-2">
+                            @foreach($employees as $employee)
+                                <div class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        wire:model="employeeIds"
+                                        value="{{ $employee->id }}"
+                                        id="employee_{{ $employee->id }}"
+                                        class="mr-2"
+                                    />
+                                    <label for="employee_{{ $employee->id }}" class="text-gray-700">{{ $employee->first_name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                     <div>
                         <label for="is_hidden" class="block text-sm font-medium text-gray-700">Is Hidden</label>
 
@@ -267,13 +335,8 @@
 
                         </div>
                     </div>
-                    <div class="flex justify-end mt-4 gap-2">
 
-                        <x-secondary-button wire:click="$set('confirmingServiceAdd', false)" wire:loading.attr="disabled">
-                            {{ __('Cancel') }}
-                        </x-secondary-button>
-                        <x-button wire:click="saveService">Save</x-button>
-                    </div>
+
 
 
             </x-slot>
@@ -281,6 +344,10 @@
             <x-slot name="footer">
 
 
+                <x-secondary-button wire:click="$set('confirmingServiceAdd', false)" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+                <x-button wire:click="saveService">Save</x-button>
             </x-slot>
         </x-dialog-modal>
 

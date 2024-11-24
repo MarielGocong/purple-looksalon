@@ -14,8 +14,8 @@
 -->
 
 <section
-class="relative bg-cover bg-center bg-no-repeat " style="background-image: url({{ asset('images/salon1.png') }}" ;>
-<div class="absolute inset-0 bg-gradient-to-r from-white/95 to-white/0 ltr:bg-gradient-to-r rtl:bg-gradient-to-l sm:bg-transparent sm:from-white/95 sm:to-white/0"></div>
+class="relative bg-cover bg-center bg-no-repeat " style="background-image: url({{ asset('images/background.jpg') }}" ;>
+<div class="absolute inset-0 bg-gradient-to-r from-white/90 to-white/0 ltr:bg-gradient-to-r rtl:bg-gradient-to-l sm:bg-transparent sm:from-white/95 sm:to-white/0"></div>
 
 <div
   class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
@@ -23,26 +23,18 @@ class="relative bg-cover bg-center bg-no-repeat " style="background-image: url({
   <div class="max-w-xl text-left ltr:sm:text-left rtl:sm:text-right">
     <h1 class="text-3xl font-extrabold sm:text-5xl text-neutral-700">
       Find Your Perfect Salon Experience at
-      <strong class="block font-extrabold text-pink-500">
-        Salon Bliss.      </strong>
+      <strong class="block font-extrabold text-salonPurple">
+        Purple Look Hair Salon and Spa.      </strong>
     </h1>
 
     <p class="mt-4 max-w-lg sm:text-xl/relaxed">
-      Discover a World of Beauty and Elegance. Elevate Your Style at Salon Bliss, Where Dreams Become Reality.
+        Purple Look's full-service Salon is prepared in every way to make you look amazingly beautiful.
          </p>
 
     <div class="mt-8 flex flex-wrap gap-4 text-center">
-      <a
-        href="{{route('services')}}"
-        class="block w-full rounded bg-pink-500 px-12 py-3 text-lg font-medium text-white shadow hover:bg-pink-700 focus:outline-none focus:ring active:bg-pink-500 sm:w-auto"
-      >
-Book Now      </a>
-<a
-          href="{{route('services')}}"
-          class="block w-full rounded bg-white px-12 py-3 text-lg font-medium text-pink-500 shadow hover:text-pink-600 focus:outline-none focus:ring-offset-pink-400 active:text-pink-500 sm:w-auto"
-        >
-          Browse Services
-        </a>
+      <a href="{{route('services')}}" class="block w-full rounded bg-salonPurple px-12 py-3 text-lg font-medium text-white shadow hover:bg-secondary focus:outline-none focus:ring active:bg-purple-500 sm:w-auto">Book Now      </a>
+
+      <a href="{{route('services')}}" class="block w-full rounded bg-white px-12 py-3 text-lg font-medium text-salonPurple shadow hover:text-secondary focus:outline-none focus:ring-offset-purple-400 active:text-purple-500 sm:w-auto">Browse Services</a>
 
 
     </div>
@@ -52,28 +44,28 @@ Book Now      </a>
 </section>
 
         {{-- <img class="w-full bg-cover" src="{{ asset('images\Salon2.jpg') }}" alt="Banner image"> --}}
-        {{-- <div class="absolute right-1 top-5 font-black text-pink-600 text-7xl">30% OFF <br>THIS SEASON</div> --}}
+        {{-- <div class="absolute right-1 top-5 font-black text-purple-600 text-7xl">30% OFF <br>THIS SEASON</div> --}}
  <div>
-    <div class="text-center text-4xl font-semibold text-pink-500 m-2 mt-5">Categories</div>
+    <div class="text-center text-4xl font-semibold text-salonPurple m-2 mt-5">Categories</div>
 
     <div class="container flex gap-10 p-10 pt-3 justify-center mx-auto">
       <a href="#" class="text-center gap-2 duration-300 hover:scale-105">
           <img class="w-60 rounded-xl" src="{{ asset('images/hair.jpg')}}" alt="">
-          <span class="text-pink-500 text-2xl">Hair</span>
+          <span class="text-salonPurple text-2xl">Hair</span>
       </a>
       <a href="#" class="text-center gap-2 duration-300 hover:scale-105">
         <img class="w-60 rounded-xl" src="{{ asset('images/nails.jpg')}}"  alt="">
-        <span class="text-pink-500 text-2xl">Nails</span>
+        <span class="text-salonPurple text-2xl">Nails</span>
 
       </a>
       <a href="#" class="text-center gap-2 duration-300 hover:scale-105">
         <img class="w-60 rounded-xl" src="{{ asset('images/skin.jpg')}}" alt="">
-        <span class="text-pink-500 text-2xl">Skin</span>
+        <span class="text-salonPurple text-2xl">Spa</span>
 
       </a>
       <a href="#" class="text-center gap-2 duration-300 hover:scale-105">
         <img class="w-60 rounded-xl" src="{{ asset('images/makeup.jpg')}}" alt="">
-        <span class="text-pink-500 text-2xl">Makeup</span>
+        <span class="text-salonPurple text-2xl">Makeup</span>
       </a>
     </div>
 
@@ -82,7 +74,7 @@ Book Now      </a>
     <section class="pt-5 bg-white">
       <div class="md:w-4/5 mx-auto">
         <div class="mx-auto text-center md:max-w-xl lg:max-w-3xl">
-          <h3 class="mb-6 text-3xl text-pink-500 font-bold">Popular Services</h3>
+          <h3 class="mb-6 text-3xl text-salonPurple font-bold">Popular Services</h3>
           <p class="mb-6 pb-2 text-gray-700 md:mb-12 md:pb-0">
             Services Popular among our customers.
           </p>
@@ -103,112 +95,100 @@ Book Now      </a>
 
       <div class="flex justify-end mx-auto pb-5 gap-3 md:w-3/4">
 
-        <a href="{{route('services')}}" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded">
+        <a href="{{route('services')}}" class="bg-salonPurple hover:bg-secondary text-white font-bold py-2 px-4 rounded">
           View All Services
         </a>
       </div>
-{{--
-      <div class="m-8 text-center w-2"> --}}
-        {{-- <x-button>View all services</x-button>   --}}
-        {{-- <a
-          href="#"
-          class="block w-full rounded bg-pink-500 px-12 py-3 text-lg font-medium text-white shadow hover:bg-pink-700 focus:outline-none focus:ring active:bg-pink-500 sm:w-auto"
-        >
-  Browse Services    </a> --}}
+
 
     </section>
 
-<section class=" w-3/4 p-3 mx-auto pt-5">
-<div>
-  <div class="text-center text-4xl font-semibold text-pink-500 m-2">Offers</div>
-</div>
-<div class="flex gap-10 ">
-    @if($deals->count() > 0)
-        @foreach($deals as $deal)
-            @if($deal->is_hidden == false)
-                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow ">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $deal->name }}</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 ">{{ $deal->description }}</p>
-                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-500 rounded-lg hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 ">
-                        View Offer
-                        <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                    </a>
-                </div>
-            @endif
-        @endforeach
-    @else
-        <p class="mx-auto text-center block text-gray-700 md:mb-12 md:pb-0">
-            No Deals Found
-        </p>
-    @endif
-</div>
+    {{--<section class=" w-3/4 p-3 mx-auto pt-5">
+    <div>
+    <div class="text-center text-4xl font-semibold text-salonPurple m-2">Offers</div>
+    </div>
+    <div class="flex gap-10 ">
+        @if($deals->count() > 0)
+            @foreach($deals as $deal)
+                @if($deal->is_hidden == false)
+                    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow ">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $deal->name }}</h5>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-700 ">{{ $deal->description }}</p>
+                        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-500 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 ">
+                            View Offer
+                            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </a>
+                    </div>
+                @endif
+            @endforeach
+        @else
+            <p class="mx-auto text-center block text-gray-700 md:mb-12 md:pb-0">
+                No Deals Found
+            </p>
+        @endif
+    </div>
     </section>
 
     {{-- Gallery --}}
-    <section class="pt-5 pb-5">
+    <section class="pt-5 pb-5 px-10">
         <div class="mx-auto text-center md:max-w-xl lg:max-w-3xl">
-          <h3 class="text-3xl text-pink-500 font-bold">Gallery</h3>
+          <h3 class="text-3xl text-salonPurple font-bold pb-5">Gallery</h3>
         </div>
-        <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
-          <div class="-m-1 flex flex-wrap md:-m-2">
-            <div class="flex w-1/3 flex-wrap">
-              <div class="w-full p-1 md:p-2">
-                <img
-                  alt="gallery"
-                  class="block h-full w-full rounded-lg object-cover object-center"
-                  src="images/gallery/gallery1.jpg" />
-              </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid gap-4">
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g1.jpg" alt="">
+                </div>
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g2.jpg" alt="">
+                </div>
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g3.jpg" alt="">
+                </div>
             </div>
-            <div class="flex w-1/3 flex-wrap">
-              <div class="w-full p-1 md:p-2">
-                <img
-                  alt="gallery"
-                  class="block h-full w-full rounded-lg object-cover object-center"
-                  src="images/gallery/gallery2.jpg" />
-              </div>
+            <div class="grid gap-4">
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g4.jpg" alt="">
+                </div>
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g5.jpg" alt="">
+                </div>
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g6.jpg" alt="">
+                </div>
             </div>
-            <div class="flex w-1/3 flex-wrap">
-              <div class="w-full p-1 md:p-2">
-                <img
-                  alt="gallery"
-                  class="block h-full w-full rounded-lg object-cover object-center"
-                  src="images/gallery/gallery3.jpg" />
-              </div>
+            <div class="grid gap-4">
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g7.jpg" alt="">
+                </div>
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g8.jpg" alt="">
+                </div>
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g9.jpg" alt="">
+                </div>
             </div>
-            <div class="flex w-1/3 flex-wrap">
-              <div class="w-full p-1 md:p-2">
-                <img
-                  alt="gallery"
-                  class="block h-full w-full rounded-lg object-cover object-center"
-                  src="images/gallery/gallery4.jpg" />
-              </div>
+            <div class="grid gap-4">
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g10.jpg" alt="">
+                </div>
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g11.jpg" alt="">
+                </div>
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="images/gallery/g12.jpg" alt="">
+                </div>
             </div>
-            <div class="flex w-1/3 flex-wrap">
-              <div class="w-full p-1 md:p-2">
-                <img
-                  alt="gallery"
-                  class="block h-full w-full rounded-lg object-cover object-center"
-                  src="images/gallery/gallery5.jpg" />
-              </div>
-            </div>
-            <div class="flex w-1/3 flex-wrap">
-              <div class="w-full p-1 md:p-2">
-                <img
-                  alt="gallery"
-                  class="block h-full w-full rounded-lg object-cover object-center"
-                  src="images/gallery/gallery6.jpg" />
-              </div>
-            </div>
-          </div>
         </div>
     </section>
+
     {{-- Testimonials --}}
     <section class="bg-white pt-5">
       <div class="md:w-3/4 mx-auto">
         <div class="mx-auto text-center md:max-w-xl lg:max-w-3xl">
-          <h3 class="mb-6 text-3xl text-pink-500 font-bold">Testimonials</h3>
+          <h3 class="mb-6 text-3xl text-salonPurple font-bold">Testimonials</h3>
           <p class="mb-6 pb-2 text-gray-700 md:mb-12 md:pb-0">
             Here are the testimonials from our customers who have visited our salon.
           </p>
@@ -227,7 +207,7 @@ Book Now      </a>
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-7 w-7 pr-2" viewBox="0 0 24 24">
                 <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z"></path>
               </svg>
-              I had the most amazing experience at Salon Bliss! The staff were so friendly and welcoming, and my hair looked absolutely stunning. I received so many compliments after my appointment and I can't wait to go back!
+              I had the most amazing experience at Purple Look Salon and Spa! The staff were so friendly and welcoming, and my hair looked absolutely stunning. I received so many compliments after my appointment and I can't wait to go back!
             </p>
             <ul class="mb-0 flex items-center justify-center">
               <li>
@@ -269,7 +249,7 @@ Book Now      </a>
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-7 w-7 pr-2" viewBox="0 0 24 24">
                 <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z"></path>
               </svg>
-              "I had the best haircut of my life at Salon Bliss! The stylist listened to exactly what I wanted and then gave me a haircut that exceeded my expectations. I felt so pampered and taken care of throughout the whole process. I can't wait to come back for my next appointment!
+              "I had the best haircut of my life at Purple Look Salon and Spa! The stylist listened to exactly what I wanted and then gave me a haircut that exceeded my expectations. I felt so pampered and taken care of throughout the whole process. I can't wait to come back for my next appointment!
             </p>
             <ul class="mb-0 flex items-center justify-center">
               <li>
@@ -311,7 +291,7 @@ Book Now      </a>
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block h-7 w-7 pr-2" viewBox="0 0 24 24">
                 <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z"></path>
               </svg>
-              "I had a last-minute hair emergency and Salon Bliss saved the day! The staff were able to fit me in right away and they did an amazing job. I can't thank them enough for their professionalism and expertise. I will definitely be coming back!"
+              "I had a last-minute hair emergency and Purple Hair Look Salon and Spa saved the day! The staff were able to fit me in right away and they did an amazing job. I can't thank them enough for their professionalism and expertise. I will definitely be coming back!"
             </p>
             <ul class="mb-0 flex items-center justify-center">
               <li>
@@ -349,7 +329,7 @@ Book Now      </a>
 
     <section class="mb-12" id="offer-banner">
 
-      <div class="bg-pink-600 alert alert-dismissible fade show fixed bottom-0 right-0 left-0 z-[1030] w-full py-4 px-6 text-white md:flex justify-between items-center text-center md:text-left">
+      <div class="bg-salonPurple alert alert-dismissible fade show fixed bottom-0 right-0 left-0 z-[1030] w-full py-4 px-6 text-white md:flex justify-between items-center text-center md:text-left">
         <div class="mb-4 md:mb-0 flex items-center flex-wrap justify-center md:justify-start">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-4 h-4 mr-2">
             <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
@@ -370,7 +350,7 @@ Book Now      </a>
     </section>
     <!-- Footer container -->
 <footer
-class="bg-pink-500 text-center text-neutral-100 lg:text-left">
+class="bg-salonPurple text-center text-neutral-100 lg:text-left">
 <div
   class="flex items-center justify-center border-b-2 border-neutral-200 p-6 lg:justify-between">
   <div class="mr-12 hidden lg:block">
@@ -378,7 +358,7 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
   </div>
   <!-- Social network icons container -->
   <div class="flex justify-center">
-    <a href="#!" class="mr-6 text-neutral-600 dark:text-neutral-200">
+    <a href="#!" class="mr-6 text-white dark:text-neutral-200">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-4 w-4"
@@ -388,10 +368,10 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
           d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
       </svg>
     </a>
-    <a href="#!" class="mr-6 text-neutral-600 dark:text-neutral-200">
+    <a href="#!" class="mr-6 text-white dark:text-neutral-200">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4"
+        class="h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24">
         <path
@@ -399,7 +379,7 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
       </svg>
     </a>
 
-    <a href="#!" class="mr-6 text-neutral-600 dark:text-neutral-200">
+    <a href="#!" class="mr-6 text-white dark:text-neutral-200">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-4 w-4"
@@ -423,8 +403,8 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
     <div>
       <h6
         class="mb-4 flex items-center justify-center font-semibold text-xl md:justify-start">
-        <img class="w-10 h-10" src="{{ asset('images/logo-white.png')}}" alt="">
-        Salon Bliss
+        <img class="w-20 h-20" src="{{ asset('images/white-logo.png')}}" alt="">
+        Purple Look Hair Salon and Spa
     </h6>
       <p class="mb-4 flex items-center justify-center md:justify-start">
         <svg
@@ -437,9 +417,7 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
           <path
             d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
         </svg>
-        No. 23/3,
-        Main St,
-        Colombo 04
+        Palico Daanan, Bacoor Cavite
       </p>
       <p class="mb-4 flex items-center justify-center md:justify-start">
         <svg
@@ -452,7 +430,7 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
           <path
             d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
         </svg>
-        info@salonbliss.com
+        purplelookhairsalonandspa@gmail.com
       </p>
       <p class="mb-4 flex items-center justify-center md:justify-start">
         <svg
@@ -477,22 +455,22 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
         Services
       </h6>
       <p class="mb-4">
-        <a href="#!" class="text-neutral-600 dark:text-neutral-200"
+        <a href="#!" class="text-white dark:text-neutral-200"
           >Hair</a
         >
       </p>
       <p class="mb-4">
-        <a href="#!" class="text-neutral-600 dark:text-neutral-200"
+        <a href="#!" class="text-white dark:text-neutral-200"
           >Nails</a
         >
       </p>
       <p class="mb-4">
-        <a href="#!" class="text-neutral-600 dark:text-neutral-200"
+        <a href="#!" class="text-white dark:text-neutral-200"
           >Skin</a
         >
       </p>
       <p>
-        <a href="#!" class="text-neutral-600 dark:text-neutral-200"
+        <a href="#!" class="text-white dark:text-neutral-200"
           >Makeup</a
         >
       </p>
@@ -501,7 +479,7 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
     <div class="">
       <h6
         class="mb-4 flex justify-center font-semibold uppercase md:justify-start">
-       Promotions
+       Branches
       </h6>
       <p class="mb-4">
         <a href="#!" class="text-neutral-600 dark:text-neutral-200"
@@ -526,11 +504,11 @@ class="bg-pink-500 text-center text-neutral-100 lg:text-left">
 
 <!--Copyright section-->
 <div class="bg-white p-2 text-center">
-  <span class="text-neutral-500">© 2023 Copyright:</span>
+  <span class="text-neutral-500">© 2024 Copyright:</span>
   <a
     class="font-semibold text-neutral-600"
     href="/"
-    >Salon Bliss</a
+    >Purple Look Hair Salon and Spa</a
   >
 </div>
 </footer>

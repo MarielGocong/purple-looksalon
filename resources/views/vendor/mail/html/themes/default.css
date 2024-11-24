@@ -1,12 +1,12 @@
-/* Base */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');/* Base */
 
 body,
 body *:not(html):not(style):not(br):not(tr):not(code) {
     box-sizing: border-box;
-    font-family: 'K2D', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    font-family: 'Figtree', sans-serif;
     position: relative;
 }
+
 
 body {
     -webkit-text-size-adjust: none;
@@ -38,7 +38,7 @@ a img {
 /* Typography */
 
 h1 {
-    color: #de5c9d;
+    color: #6a2695;
     font-size: 18px;
     font-weight: bold;
     margin-top: 0;
@@ -103,7 +103,7 @@ img {
 }
 
 .header a {
-    color: #de5c9d;
+    color: #6a2695;
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
@@ -232,11 +232,11 @@ img {
 
 .button-blue,
 .button-primary {
-    background-color: #de5c9d;
-    border-bottom: 8px solid #de5c9d;
-    border-left: 18px solid #de5c9d;
-    border-right: 18px solid #de5c9d;
-    border-top: 8px solid #de5c9d;
+    background-color: #6a2695;
+    border-bottom: 8px solid #6a2695;
+    border-left: 18px solid #6a2695;
+    border-right: 18px solid #6a2695;
+    border-top: 8px solid #6a2695;
 }
 
 .button-green,

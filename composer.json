@@ -6,13 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "asdh/laravel-flatpickr": "^2.2",
+        "barryvdh/laravel-dompdf": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
+        "infobip/infobip-api-php-client": "5.0.0",
         "laravel/framework": "^10.8",
         "laravel/jetstream": "^3.1",
         "laravel/sanctum": "^3.2",
         "laravel/telescope": "^4.16",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^2.11",
+        "propaganistas/laravel-phone": "^5.3",
         "rappasoft/laravel-livewire-tables": "^2.14"
     },
     "require-dev": {

@@ -71,8 +71,10 @@ class UserController extends Controller
 
         if ($role == 'employee') {
             $role_id = UserRolesEnum::Employee;
-        } else {
+        } elseif ($role == 'customer'){
             $role_id = UserRolesEnum::Customer;
+        } else {
+            $role_id = UserRolesEnum::Admin;
         }
 
         try {

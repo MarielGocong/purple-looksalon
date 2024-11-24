@@ -14,9 +14,8 @@
             <x-dashboard.navlinks />
         </x-slot>
 
-        <div id="dashboard-grid" style="display: grid; grid-template-columns: 1fr 4fr;">
-            {{-- Sidebar --}}
-            <div class="">
+        <aside id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+            <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
                 <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
                     <div class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full ">
                       <div class="flex items-center justify-center h-14 ">
@@ -31,40 +30,13 @@
                             </div>
                           </li>
                           <li>
-                            <a href="/dashboard" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6">
+                            <a href="/dashboard" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6">
                               <span class="inline-flex justify-center items-center ml-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                               </span>
-                              <span class="ml-2 text-sm tracking-wide truncate">Dashboard</span>
+                              <span class="ml-2 text-left text-sm tracking-wide truncate">Dashboard</span>
                             </a>
                           </li>
-{{--                          <li>--}}
-{{--                            <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6">--}}
-{{--                              <span class="inline-flex justify-center items-center ml-4">--}}
-{{--                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>--}}
-{{--                              </span>--}}
-{{--                              <span class="ml-2 text-sm tracking-wide truncate">Inbox</span>--}}
-{{--                              <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-pink-500 bg-pink-50 rounded-full">New</span>--}}
-{{--                            </a>--}}
-{{--                          </li>--}}
-
-{{--                          <li>--}}
-{{--                            <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6">--}}
-{{--                              <span class="inline-flex justify-center items-center ml-4">--}}
-{{--                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>--}}
-{{--                              </span>--}}
-{{--                              <span class="ml-2 text-sm tracking-wide truncate">Messages</span>--}}
-{{--                            </a>--}}
-{{--                          </li>--}}
-{{--                          <li>--}}
-{{--                            <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6">--}}
-{{--                              <span class="inline-flex justify-center items-center ml-4">--}}
-{{--                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>--}}
-{{--                              </span>--}}
-{{--                              <span class="ml-2 text-sm tracking-wide truncate">Notifications</span>--}}
-{{--                              <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">1.2k</span>--}}
-{{--                            </a>--}}
-{{--                          </li>--}}
 
                           {{-- User Role 1= Admin, 2 = Employee --}}
                           @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -76,8 +48,8 @@
                           </li>
                           @if(Auth::user()->role_id == 1 )
                           <li>
-                            <a href="{{ route('manageusers') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6
-                            {{ request()->is('dashboard/manage/users') ? 'bg-gray-100 border-pink-500 text-gray-900 font-semibold' : '' }}
+                            <a href="{{ route('manageusers') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                            {{ request()->is('dashboard/manage/users') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
                             ">
                               <span class="inline-flex justify-center items-center ml-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
@@ -87,25 +59,13 @@
                             </a>
                           </li>
 
-                            <li>
-                                <a href="{{ route('managelocations') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6
-                                {{ request()->is('dashboard/manage/locations') ? 'bg-gray-100 border-pink-500 text-gray-900 font-semibold' : '' }}
-                                ">
-                                  <span class="inline-flex justify-center items-center ml-4">
-                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15 14V17.6C15 18.4401 15 18.8601 14.8365 19.181C14.6927 19.4632 14.4632 19.6927 14.181 19.8365C13.8601 20 13.4401 20 12.6 20H7.40001C6.55994 20 6.1399 20 5.81903 19.8365C5.53679 19.6927 5.30731 19.4632 5.1635 19.181C5.00001 18.8601 5.00001 18.4401 5.00001 17.6V10M19 10V20M5.00001 16H15M5.55778 4.88446L3.5789 8.84223C3.38722 9.22559 3.29138 9.41727 3.3144 9.57308C3.3345 9.70914 3.40976 9.8309 3.52246 9.90973C3.65153 10 3.86583 10 4.29444 10H19.7056C20.1342 10 20.3485 10 20.4776 9.90973C20.5903 9.8309 20.6655 9.70914 20.6856 9.57308C20.7086 9.41727 20.6128 9.22559 20.4211 8.84223L18.4422 4.88446C18.2817 4.5634 18.2014 4.40287 18.0817 4.28558C17.9758 4.18187 17.8482 4.10299 17.7081 4.05465C17.5496 4 17.3701 4 17.0112 4H6.98887C6.62991 4 6.45043 4 6.29198 4.05465C6.15185 4.10299 6.02422 4.18187 5.91833 4.28558C5.79858 4.40287 5.71832 4.5634 5.55778 4.88446Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                  </span>
-                                <span class="ml-2 text-sm tracking-wide truncate">Manage Locations</span>
 
-                                </a>
-                            </li>
 
                           @endif
 
                         <li>
-                            <a href="{{ route('manageappointments') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6
-                        {{ request()->is('dashboard/manage/appointments') ? 'bg-gray-100 border-pink-500 text-gray-900 font-semibold' : '' }}
+                            <a href="{{ route('manageappointments') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                        {{ request()->is('dashboard/manage/appointments') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
                         ">
                           <span class="inline-flex justify-center items-center ml-4">
                             <svg fill="currentColor" class="w-5 h-5" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title/><path d="M18,5V3a1,1,0,0,0-2,0V5H8V3A1,1,0,0,0,6,3V5H2V21H22V5Zm2,14H4V7H20Zm-7-9H11v2h2Zm4,0H15v2h2ZM9,14H7v2H9Zm4,0H11v2h2Z"/></svg>
@@ -114,9 +74,10 @@
 
                             </a>
                         </li>
+
                           <li>
-                            <a href="{{route('manageservices')}}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6
-                            {{ request()->is('dashboard/manage/services') ? 'bg-gray-100 border-pink-500 text-gray-900 font-semibold' : '' }}
+                            <a href="{{route('manageservices')}}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                            {{ request()->is('dashboard/manage/services') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
                             ">
                               <span class="inline-flex justify-center items-center ml-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
@@ -125,38 +86,190 @@
                             </a>
                           </li>
 
+                          <li>
+                            <a href="{{ route('managecategories') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                    {{ request()->is('dashboard/manage/categories') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
+                    ">
+                      <span class="inline-flex justify-center items-center ml-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                      </span>
+                                <span class="ml-2 text-sm tracking-wide truncate">Manage Categories</span>
+                            </a>
+                        </li>
+
+
+
+
                             <li>
-                                <a href="{{ route('managecategories') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6
-                        {{ request()->is('dashboard/manage/categories') ? 'bg-gray-100 border-pink-500 text-gray-900 font-semibold' : '' }}
+                                <a href="{{ route('managediscountocodes') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                        {{ request()->is('dashboard/manage/discount/code') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
                         ">
                           <span class="inline-flex justify-center items-center ml-4">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
                           </span>
-                                    <span class="ml-2 text-sm tracking-wide truncate">Manage Categories</span>
+                                    <span class="ml-2 text-sm tracking-wide truncate">Manage Deals</span>
                                 </a>
                             </li>
 
                           <li>
-                            <a href="{{ route('managedeals') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-pink-500 pr-6
-                            {{ request()->is('dashboard/manage/deals') ? 'bg-gray-100 border-pink-500 text-gray-900 font-semibold' : '' }}
-                            ">
-                              <span class="inline-flex justify-center items-center ml-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16"> <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/> <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/> </svg>
-                              </span>
-                              <span class="ml-2 text-sm tracking-wide truncate">Manage Deals</span>
 
+                            @if(Auth::user()->role_id == 1 )
+
+                            <li>
+                                <a href="{{ route('manageemployees') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                        {{ request()->is('dashboard/manage/manageemployees') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
+                        ">
+                          <span class="inline-flex justify-center items-center ml-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"> </path></svg>
+                          </span>
+                                    <span class="ml-2 text-sm tracking-wide truncate">Manage Employees</span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="{{route('managejobcategories')}}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                                {{ request()->is('dashboard/manage/jobcategories') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
+                                ">
+                                  <span class="inline-flex justify-center items-center ml-4">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                  </span>
+                                  <span class="ml-2 text-sm tracking-wide truncate">Manage Job Categories</span>
+                                </a>
+                              </li>
+
+
+                            @endif
+
+
+                          <li class="px-5">
+                            <div class="flex flex-row items-center h-8">
+                              <div class="text-sm font-light tracking-wide text-gray-500">INVENTORY MANAGING</div>
+                            </div>
+                          </li>
+
+                          <li>
+                            <a href="{{ route('manageequipments') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                            {{ request()->is('dashboard/manage/equipments') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
+                            ">
+
+                            <span class="inline-flex justify-center items-center ml-4">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m7.848 8.25 1.536.887M7.848 8.25a3 3 0 1 1-5.196-3 3 3 0 0 1 5.196 3Zm1.536.887a2.165 2.165 0 0 1 1.083 1.839c.005.351.054.695.14 1.024M9.384 9.137l2.077 1.199M7.848 15.75l1.536-.887m-1.536.887a3 3 0 1 1-5.196 3 3 3 0 0 1 5.196-3Zm1.536-.887a2.165 2.165 0 0 0 1.083-1.838c.005-.352.054-.695.14-1.025m-1.223 2.863 2.077-1.199m0-3.328a4.323 4.323 0 0 1 2.068-1.379l5.325-1.628a4.5 4.5 0 0 1 2.48-.044l.803.215-7.794 4.5m-2.882-1.664A4.33 4.33 0 0 0 10.607 12m3.736 0 7.794 4.5-.802.215a4.5 4.5 0 0 1-2.48-.043l-5.326-1.629a4.324 4.324 0 0 1-2.068-1.379M14.343 12l-2.882 1.664" />
+                              </svg>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Manage Equipment</span>
                             </a>
                           </li>
+
+                          <li>
+                            <a href="{{ route('managesupplies') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                            {{ request()->is('dashboard/manage/supplies') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
+                            ">
+
+                            <span class="inline-flex justify-center items-center ml-4">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m7.848 8.25 1.536.887M7.848 8.25a3 3 0 1 1-5.196-3 3 3 0 0 1 5.196 3Zm1.536.887a2.165 2.165 0 0 1 1.083 1.839c.005.351.054.695.14 1.024M9.384 9.137l2.077 1.199M7.848 15.75l1.536-.887m-1.536.887a3 3 0 1 1-5.196 3 3 3 0 0 1 5.196-3Zm1.536-.887a2.165 2.165 0 0 0 1.083-1.838c.005-.352.054-.695.14-1.025m-1.223 2.863 2.077-1.199m0-3.328a4.323 4.323 0 0 1 2.068-1.379l5.325-1.628a4.5 4.5 0 0 1 2.48-.044l.803.215-7.794 4.5m-2.882-1.664A4.33 4.33 0 0 0 10.607 12m3.736 0 7.794 4.5-.802.215a4.5 4.5 0 0 1-2.48-.043l-5.326-1.629a4.324 4.324 0 0 1-2.068-1.379M14.343 12l-2.882 1.664" />
+                              </svg>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Manage Supplies and Consumables</span>
+                            </a>
+                          </li>
+
+
+                          <li>
+                            <a href="{{ route('manageonlinesuppliers') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                            {{ request()->is('dashboard/manage/online/suppliers') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
+                            ">
+
+                            <span class="inline-flex justify-center items-center ml-4">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m7.848 8.25 1.536.887M7.848 8.25a3 3 0 1 1-5.196-3 3 3 0 0 1 5.196 3Zm1.536.887a2.165 2.165 0 0 1 1.083 1.839c.005.351.054.695.14 1.024M9.384 9.137l2.077 1.199M7.848 15.75l1.536-.887m-1.536.887a3 3 0 1 1-5.196 3 3 3 0 0 1 5.196-3Zm1.536-.887a2.165 2.165 0 0 0 1.083-1.838c.005-.352.054-.695.14-1.025m-1.223 2.863 2.077-1.199m0-3.328a4.323 4.323 0 0 1 2.068-1.379l5.325-1.628a4.5 4.5 0 0 1 2.48-.044l.803.215-7.794 4.5m-2.882-1.664A4.33 4.33 0 0 0 10.607 12m3.736 0 7.794 4.5-.802.215a4.5 4.5 0 0 1-2.48-.043l-5.326-1.629a4.324 4.324 0 0 1-2.068-1.379M14.343 12l-2.882 1.664" />
+                              </svg>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Manage Online Suppliers</span>
+                            </a>
+                          </li>
+
+                          <li class="px-5">
+                            <div class="flex flex-row items-center h-8">
+                              <div class="text-sm font-light tracking-wide text-gray-500">REPORT</div>
+                            </div>
+                          </li>
+
+                          <li>
+                            <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                  </svg>
+
+                                  <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Sales Report</span>
+                                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                  </svg>
+                            </button>
+                            <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                                  <li>
+                                     <a  href="{{ route('daily.report') }}"  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Daily</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ route('weekly.report') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Weekly</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ route('monthly.report') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Monthly</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ route('monthly.report') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Quarterly</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ route('monthly.report') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Annualy</a>
+                                  </li>
+                            </ul>
+                         </li>
+
+                          <li class="px-5">
+                            <div class="flex flex-row items-center h-8">
+                              <div class="text-sm font-light tracking-wide text-gray-500">SETTING</div>
+                            </div>
+                          </li>
+
+
+
+                          <li>
+                            <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                  </svg>
+
+                                  <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Others</span>
+                                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                  </svg>
+                            </button>
+                            <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                                  <li>
+                                     <a  href="{{ route('manageholidays') }}"  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Holidays</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ route('managedeals') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Deals</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ route('managecontact') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Concerns</a>
+                                  </li>
+                            </ul>
+                         </li>
+
+
                             @else
 
                           @endif
 
 
                         </ul>
-                      </div>
                     </div>
-                  </div>
-            </div>
+                </aside>
 
         {{-- <div class="max-w-9xl mx-auto sm:px-6 lg:px-8"> --}}
         <div class="">

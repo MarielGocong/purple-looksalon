@@ -15,18 +15,18 @@ class Appointment extends Model
         'user_id',
         'service_id',
         'date',
-        'time_slot_id',
-        'start_time',
-        'end_time',
-        'location_id',
+        'time',
+        'employee_id',
         'total',
         'status',
+        'cancellation_reason',
+        'notes',
+        'first_name',
 
     ];
 
     protected $casts = [
-        'start_time' => 'string',  // as string cuz we get it from the time slot
-        'end_time' => 'string',
+        'first_name' => 'string',
     ];
 
     public function user()
@@ -39,20 +39,16 @@ class Appointment extends Model
         return $this->belongsTo(Service::class);
     }
 
-    public function timeSlot()
-    {
-        return $this->belongsTo(TimeSlot::class);
-    }
-
     public function cart()
     {
         return $this->belongsTo(Cart::class);
     }
 
-    public function location()
+    public function employee()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsTo(Employee::class);
     }
+
 
 
 

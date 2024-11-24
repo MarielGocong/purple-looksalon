@@ -12,9 +12,16 @@ class Deal extends Model
     protected $fillable = [
         'name',
         'description',
-        'discount',
+        'discount_amount',
+        'discount_percentage',
+        'service_id',
         'start_date',
         'end_date',
         'is_hidden',
     ];
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'deal_service');
+    }
 }

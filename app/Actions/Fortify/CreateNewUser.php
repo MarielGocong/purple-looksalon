@@ -24,16 +24,16 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'phone_number' => ['required', 'string', 'regex:/^[0-9]{10}$/', 'unique:users'],
+            'phone_number' => ['required', 'string', 'regex:/^09[0-9]{9}$/', 'unique:users'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
-        
+
         // if ($input['role_id'] == 2) {
         //     $role_id = UserRolesEnum::Employee;
         // } else {
             $role_id = UserRolesEnum::Customer;
         // }
- 
+
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],

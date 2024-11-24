@@ -21,7 +21,15 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // Get home path
+                $homePath = RouteServiceProvider::getHomePath();
+
+                // Debugging output to log the type and value
+                logger()->info('Redirecting to home path', ['homePath' => $homePath, 'type' => gettype($homePath)]);
+
+                // Ensure the path is a string
+                return redirect((string) RouteServiceProvider::getHomePath());
+
             }
         }
 

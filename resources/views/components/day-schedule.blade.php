@@ -4,8 +4,9 @@
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 overflow-x-scroll min-w-screen">
         <thead class="bg-gray-50">
         <tr>
-            <th scope="col" class="pl-6 py-4 font-medium text-gray-900 border p-2">Time Slot</th>
+            <th scope="col" class="pl-6 py-4 font-medium text-gray-900 border p-2">Time</th>
             <th scope="col" class="px-4 py-4 font-medium text-gray-900 border p-2">Service</th>
+            <th scope="col" class="px-4 py-4 font-medium text-gray-900 border p-2">Staff Assign</th>
             <th scope="col" class="px-4 py-4 font-medium text-gray-900 border p-2">Customer</th>
             <th scope="col" class="px-4 py-4 font-medium text-gray-900 border p-2">Email</th>
             <th scope="col" class="px-4 py-4 font-medium text-gray-900 border p-2">Phone Number</th>
@@ -19,7 +20,7 @@
             <tr
 
                     @if($appointment)
-                        class = "bg-pink-50 hover:bg-pink-100"
+                        class = "bg-purple-50 hover:bg-purple-100"
                     @else
                         class="hover:bg-gray-50"
                     @endif
