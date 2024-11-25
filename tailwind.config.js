@@ -24,6 +24,10 @@ module.exports = {
         },
     },
 
+    safelist: [
+        ...[...Array(10).keys()].flatMap(i => [`top-[${i*10}%]`, `left-[${i*10}%]`])
+    ],
+
     plugins: [
         require('flowbite/plugin')({
             charts: true,

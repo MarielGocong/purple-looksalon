@@ -2,7 +2,7 @@
   <x-slot name="mainLogoRoute">
     {{ route('home') }}
   </x-slot>
-
+dasdadasdasdas
 
     <div class="relative">
         {{-- <img class="w-full" src="{{ asset('images\banner-salon.png') }}" alt="Banner image"> --}}
