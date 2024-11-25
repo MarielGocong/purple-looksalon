@@ -18,29 +18,25 @@ class AddingServiceToCart extends Component
     public $selectedTime;
     public $selectedDate;
     public $employees;
+    public $errorMessage;
+
 
     public function mount(Service $service)
-{
-    $this->service = $service;
+    {
+        $this->service = $service;
 
-    // Fetch only employees assigned to the current service (i.e., those who are related to this service)
-    $this->employees = $this->service->employees;  // Assuming you have a relationship set up
+        // Fetch employees assigned to this service
+        $this->employees = $this->service->employees;
 
-    // If there are no employees assigned, handle the case gracefully (perhaps show an error or a default message)
-    if ($this->employees->isEmpty()) {
-        session()->flash('error', 'No employees are assigned to this service.');
-        return redirect()->route('services'); // Redirect to home or an appropriate page
+        // Check if there are no employees assigned to the service
+        if ($this->employees->isEmpty()) {
+            // Set the error message to display if no employees are assigned
+            $this->errorMessage = "No Staff Assigned. Please select a different service.";
+        } else {
+            // Reset the error message if there are employees
+            $this->errorMessage = null;
+        }
     }
-
-    // Set the selected employee to the first assigned employee (or the only assigned employee)
-    $this->selectedEmployee = $this->employees->first()->id;
-
-    // Set all employees as available (assuming availability is based on time and date, handled later)
-    $this->employees->map(function ($employee) {
-        $employee->available = true; // Mark as available initially
-    });
-}
-
 
     public function render()
     {

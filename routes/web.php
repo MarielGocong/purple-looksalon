@@ -27,7 +27,9 @@ use App\Http\Controllers\SalesReportController;
 
 //Route::get('/test', [App\Http\Controllers\AdminDashboardHome::class, 'index'])->name('test');
 
-Route::get('/', [App\Http\Controllers\HomePageController::class, 'index'])->name('home');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [App\Http\Controllers\HomePageController::class, 'index'])->name('home');
+});
 
 Route::get('/about',[App\Http\Controllers\DisplayAbout::class, 'about'])->name('about');
 
@@ -219,7 +221,10 @@ Route::middleware([
             Route::prefix('customer')->group( function () {
                 Route::get('/', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
                 Route::post('/', [App\Http\Controllers\CartController::class, 'store'])->name('cart.store');
-                Route::delete('/item/{cart_service_id}', [App\Http\Controllers\CartController::class, 'removeItem'])->name('cart.remove-item');
+
+                Route::delete('customer/cart/remove-item/{cart_service_id}', [App\Http\Controllers\CartController::class, 'removeItem'])->name('cart.remove-item');
+
+
                 Route::delete('/{id}', [App\Http\Controllers\CartController::class, 'destroy'])->name('cart.destroy');
                 Route::post('/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name('cart.checkout');
 

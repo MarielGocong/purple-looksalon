@@ -22,6 +22,9 @@ class Appointment extends Model
         'cancellation_reason',
         'notes',
         'first_name',
+        'payment_method',
+        'proof_pic',
+        'reference_number',
 
     ];
 
