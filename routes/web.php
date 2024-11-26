@@ -28,7 +28,7 @@ use App\Http\Controllers\SalesReportController;
 //Route::get('/test', [App\Http\Controllers\AdminDashboardHome::class, 'index'])->name('test');
 
 
-    Route::get('/', [App\Http\Controllers\HomePageController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomePageController::class, 'index'])->name('home');
 
 Route::get('/about',[App\Http\Controllers\DisplayAbout::class, 'about'])->name('about');
 
