@@ -1,7 +1,7 @@
 <div class="p-4 sm:ml-64">
     <div class="p-4 border-2 border-gray-200">
     <div class="flex justify-between mx-7">
-        <h2 class="text-2xl font-bold">MANAGE  EQUIPMENTS</h2>
+    <h2 class="text-2xl font-bold text-salonPurple">MANAGE EQUIPMENTS</h2>
 
        <div class="d-flex align-items items-center ml-4">
         <select id="categoryFilter" wire:model="categoryFilter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -16,7 +16,7 @@
 
 
         <x-button wire:click="showAddEquipmentModal"  class="px-5 py-2 text-white bg-purple-500 rounded-md hover:bg--600">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
 
@@ -28,7 +28,7 @@
             <svg class="w-6 h-6 me-2 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z"/>
               </svg>
-            Print to PDF
+            Download to PDF
         </x-button>
 
     </div>

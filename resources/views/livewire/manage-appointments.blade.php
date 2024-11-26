@@ -1,20 +1,20 @@
 <div class="p-4 sm:ml-64">
     <div class="p-4 border-2 border-gray-200  mt-2">
         <div class="flex justify-between mx-7">
-            <h2 class="text-2xl font-bold">
+            <h2 class="text-2xl font-bold text-salonPurple">
 
                 @if ($selectFilter == 'upcoming')
-                        Upcoming
+                        UPCOMING
                 @elseif ($selectFilter == 'previous')
-                        Previous
+                        PREVIOUS
                 @elseif ($selectFilter == 'cancelled')
-                        Cancelled
+                        CANCELLED
                 @elseif ($selectFilter == 'completed')
-                        Completed
+                        COMPLETED
                 @endif
 
 
-                Appointments</h2>
+                APPOINTMENTS</h2>
 
 
         </div>

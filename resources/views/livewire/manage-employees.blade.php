@@ -1,6 +1,6 @@
 <div class="p-4 sm:ml-64">
     <div class="flex justify-between mx-7">
-        <h2 class="text-2xl font-bold">MANAGE  EMPLOYEE</h2>
+    <h2 class="text-2xl font-bold text-salonPurple">MANAGE EMPLOYEE'S</h2>
 
 
 
