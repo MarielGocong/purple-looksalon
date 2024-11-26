@@ -51,7 +51,6 @@
                             <th scope="col" class="px-4 py-4 font-bold text-gray-900">Time</th>
                             <th scope="col" class="px-4 py-4 font-bold text-gray-900">Staff Assigned</th>
                             <th scope="col" class="px-4 py-4 font-bold text-gray-900">Reason</th>
-
                             <th scope="col" class="px-4 py-4 font-bold text-gray-900">Actions</th>
                         </tr>
                     </thead>
