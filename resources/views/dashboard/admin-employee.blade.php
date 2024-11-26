@@ -308,7 +308,7 @@
         </div>
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div id="serviceCategoryRevenueChart"></div>
-
+a
 
             <script>
                 // Data from Laravel
