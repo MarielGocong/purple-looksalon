@@ -1,6 +1,7 @@
-<div>
-    <div class="flex justify-between mx-7">
-        <h2 class="text-2xl font-bold">Job Categories</h2>
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200  mt-2">
+        <div class="flex justify-between mx-7">
+            <h2 class="text-2xl font-bold text-salonPurple">JOB CATEGORIES</h2>
 
         <x-button wire:click="confirmJobCategoryAdd" class="px-5 py-2 text-white bg-purple-500 rounded-md hover:bg-purple-600">
             Create
@@ -48,9 +49,7 @@
                                 <x-button wire:click="confirmJobCategoryEdit({{ $job_category->id }})" wire:loading.attr="enabled">
                                     {{ __('Edit') }}
                                 </x-button>
-                                <x-danger-button wire:click="confirmJobCategoryDeletion({{ $job_category->id }})" wire:loading.attr="disabled">
-                                    {{ __('Delete') }}
-                                </x-danger-button>
+                              
                             </div>
                         </td>
                     </tr>
