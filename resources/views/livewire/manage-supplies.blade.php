@@ -244,7 +244,7 @@
         <x-dialog-modal wire:model="showAddSuppliesModal">
             <x-slot name="title">{{ __('Add Supply') }}</x-slot>
             <x-slot name="content">
-                @include('components.supplies-form', ['isEditing' => true, 'supply' => $supply ?? null])
+            @include('components.supplies-form', ['isEditing' => true])   
             </x-slot>
             <x-slot name="footer">
                 <x-secondary-button wire:click="closeModals">Cancel</x-secondary-button>
@@ -255,8 +255,8 @@
         <x-dialog-modal wire:model="showEditSuppliesModal">
             <x-slot name="title">{{ __('Edit Supply') }}</x-slot>
             <x-slot name="content">
-                @include('components.supplies-form', ['isEditing' => true, 'supply' => $supply ?? null])
-            </x-slot>
+            @include('components.supplies-form', ['isEditing' => true])
+                    </x-slot>
             <x-slot name="footer">
                 <x-secondary-button wire:click="closeModals">Cancel</x-secondary-button>
                 <x-button wire:click="saveSupplies">Save Changes</x-button>
