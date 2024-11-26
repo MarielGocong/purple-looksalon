@@ -20,7 +20,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
 
-            Add
+            Add Equipment
         </x-button>
 
 
@@ -93,8 +93,6 @@
                         <img src="{{ asset('storage/' . $equipment->image) }}" alt="" class="w-20 h-20 object-cover">
                     </div>
                 </td>
-
-
                 <td class="px-6 py-4  max-w-0">
                     <div class="font-medium text-gray-900">{{ $equipment->name}}</div>
                 </td>
@@ -106,9 +104,6 @@
                 <td class="px-6 py-4 max-w-0">
                     <div class="'font-medium text-gray-900" >{{ $equipment->category?->name }}</div>
                 </td>
-
-
-
                 <td class="px-6 py-4 max-w-0">
                     <div class="font-medium {{ $equipment->quantity <= 5 ? 'text-red-600' : 'text-gray-700' }}">
                         {{ $equipment->quantity }}
@@ -192,9 +187,6 @@
                 </td>
             </tr>
             @endforeach
-
-
-
           </tbody>
         </table>
 
@@ -284,11 +276,6 @@
                 <x-button wire:click="saveEquipment">Save Changes</x-button>
             </x-slot>
         </x-dialog-modal>
-
-
-
-
-
 
         <script>
             window.addEventListener('downloadFile', event => {

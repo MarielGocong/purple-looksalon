@@ -22,7 +22,7 @@
                     <p class="text-gray-500 line-through ml-2">{{ number_format($service->price, 2) }}</p>
                     <p class="text-xl font-bold text-green-500 ml-2">{{ number_format($service->final_price ?? $service->price, 2) }}</p>
                 @else
-                    <p class="text-xl font-bold">{{ number_format($service->price, 2) }}</p>
+                    <p class="text-xl font-bold">₱ {{ number_format($service->price, 2) }}</p>
                 @endif
             </div>
             <a href="{{ route('view-service', ['slug' => $service->slug]) }}"><x-button>Book Now</x-button></a>
