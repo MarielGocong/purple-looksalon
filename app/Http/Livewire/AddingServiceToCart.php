@@ -31,7 +31,7 @@ class AddingServiceToCart extends Component
         // Check if there are no employees assigned to the service
         if ($this->employees->isEmpty()) {
             // Set the error message to display if no employees are assigned
-            $this->errorMessage = "No Staff Assigned. Please select a different service.";
+            $this->errorMessage = "Sorry, no Staff Assigned. Please select a different service.";
         } else {
             // Reset the error message if there are employees
             $this->errorMessage = null;
