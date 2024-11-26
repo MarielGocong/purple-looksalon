@@ -134,8 +134,8 @@
                           </li>
 
                           <li>
-                            <a href="{{ route('manageequipment') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
-                            {{ request()->is('dashboard/manage/equipment') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
+                            <a href="{{ route('manageequipments') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
+                            {{ request()->is('dashboard/manage/equipments') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
                             ">
 
                             <span class="inline-flex justify-center items-center ml-4">
