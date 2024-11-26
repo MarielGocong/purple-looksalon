@@ -214,6 +214,7 @@ Route::middleware([
 
         });
 
+
         Route::middleware([
             'validateRole:Customer'
         ])->group(function () {
@@ -230,6 +231,11 @@ Route::middleware([
                 })->name('customerview');
             });
 
+                Route::get('customer-appointment', function () {
+                    return view('dashboard.customer-view-appointment.index');
+                })->name('customerview');
+            });
+
 
             // Get the appointments of the user
 //            Route::get('appointments', [App\Http\Controllers\AppointmentController::class, 'index'])->name('appointments');
@@ -240,8 +246,4 @@ Route::middleware([
 //            // Cancel an appointment
 //            Route::delete('appointments/{appointment_code}', [App\Http\Controllers\AppointmentController::class, 'destroy'])->name('appointments.destroy');
 
-
-
-
-        });
     });
