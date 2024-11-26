@@ -34,7 +34,6 @@ class Service extends Model
         'category_id',
         'is_hidden',
         'employee_id',
-        'job_category_id',
         'status',
     ];
 
@@ -82,10 +81,6 @@ class Service extends Model
         return $this->belongsToMany(Employee::class, 'employee_service');
     }
 
-    public function jobCategory()
-    {
-        return $this->belongsTo(JobCategory::class);
-    }
 
 
     protected static function booted()

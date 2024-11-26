@@ -282,16 +282,7 @@
                         <textarea id="notes" wire:model="newService.notes"  class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         @error('newService.notes') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
-                    <div class="mt-4">
-                        <label for="job-category" class="block text-sm font-medium text-gray-700">Job Category</label>
-                        <select id="job-category" wire:model="newService.job_category_id" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm">
-                            <option value="">Select a job category</option>
-                            @foreach($jobCategories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('newService.job_category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                    </div>
+                   
                     <div class="mt-4">
                         <label for="employees" class="block text-sm font-medium text-gray-700">Assign Employees</label>
                         <div id="employees" class="mt-2">

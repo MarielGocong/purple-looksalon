@@ -64,7 +64,6 @@ class ManageServices extends Component
         'newService.cautions' => 'nullable|string|min:1|max:255',
         'newService.benefits' => 'nullable|string|min:1|max:255',
         'newService.aftercare_tips' => 'nullable|string|min:1|max:255',
-        'newService.job_category_id' => 'nullable|exists:job_categories,id',
         'newService.notes' => 'nullable|string|min:1|max:255',
 
     ];
@@ -99,9 +98,7 @@ public function render()
     ->when($this->categoryFilter, function ($query) {
         $query->where('category_id', $this->categoryFilter); // Filter by category
     })
-    ->when($this->jobCategoryFilter, function ($query) {
-        $query->where('job_category_id', $this->jobCategoryFilter);
-    })
+ 
     ->orderBy('price', 'asc') // Order by price
     ->paginate(10); // Paginate results
 
@@ -162,7 +159,6 @@ public function render()
         $this->validateOnly('newService.description');
         $this->validateOnly('newService.price');
         $this->validateOnly('newService.is_hidden');
-        $this->validateOnly('newService.category_id');
         $this->validateOnly('newService.job_category_id');
         $this->validateOnly('newService.allergens');
         $this->validateOnly('newService.cautions');
