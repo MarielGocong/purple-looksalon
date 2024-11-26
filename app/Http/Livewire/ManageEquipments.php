@@ -32,27 +32,8 @@ class ManageEquipments extends Component
     public $image;
     public $categories;
     public $categoryFilter = null;
-    public $statusFilter = '';
     public $employees;
     public $paginate = 10;
-
-    public function archiveEquipment($equipmentId)
-    {
-        $equipment = Equipment::findOrFail($equipmentId);
-        $equipment->status = 0; // Set to archived
-        $equipment->save();
-
-        session()->flash('message', 'Equipment archived successfully.');
-    }
-
-    public function unarchiveEquipment($equipmentId)
-    {
-        $equipment = Equipment::findOrFail($equipmentId);
-        $equipment->status = 1; // Set to active
-        $equipment->save();
-
-        session()->flash('message', 'Equipment unarchived successfully.');
-    }
 
     public function resetFilters()
     {
@@ -161,24 +142,18 @@ class ManageEquipments extends Component
 
     public function render()
     {
-            $query = Equipment::with(['employee', 'category'])
-        ->when($this->categoryFilter, function ($query) {
-            $query->where('category_id', $this->categoryFilter);
-        })
-        ->when($this->search, function ($query) {
-            $query->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('brand_name', 'like', '%' . $this->search . '%');
+        $query = Equipment::with(['employee', 'category'])
+            ->when($this->categoryFilter, function ($query) {
+                $query->where('category_id', $this->categoryFilter);
+            })
+            ->when($this->search, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('name', 'like', '%' . $this->search . '%')
+                      ->orWhere('brand_name', 'like', '%' . $this->search . '%');
+                });
             });
-        })
-        ->when($this->statusFilter == 'active', function ($query) {
-            $query->where('status', 1);
-        })
-        ->when($this->statusFilter == 'archived', function ($query) {
-            $query->where('status', 0);
-        });
 
-    $equipments = $query->paginate($this->paginate);
+        $equipments = $query->paginate($this->paginate);
 
         foreach ($equipments as $equipment) {
             $maintenanceDate = Carbon::parse($equipment->next_maintenance);
