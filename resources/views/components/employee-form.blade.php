@@ -51,7 +51,7 @@
         @error('newEmployee.date_started') <span class="text-red-500">{{ $message }}</span>@enderror
         </div>
 
-    <div class="sm:col-span-3">
+    <div class="sm:col-span-1">
         <div class="flex flex-inline">
             <label>Select Working Days:</label>
             @foreach($allDays as $day)
@@ -61,7 +61,8 @@
                     <label for="day-{{ $day }}">{{ $day }}</label>
                 </div>
             @endforeach
-        </div>
+    </div>
+    </div>
 
 
         <div>
