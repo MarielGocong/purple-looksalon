@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\AppointmentStatusEnum;
+use App\Enums\UserRolesEnum;
 use App\Jobs\SendAppointmentConfirmationMailJob;
 use App\Jobs\SendNewServicePromoMailJob;
 use Illuminate\Database\Eloquent\Model;
@@ -22,20 +22,13 @@ class Appointment extends Model
         'cancellation_reason',
         'notes',
         'first_name',
-        'pay_method',
-        'proof_of_payment',
-        'reference_number',
+
     ];
 
     protected $casts = [
         'first_name' => 'string',
-        'date' => 'date',
-        'time' => 'datetime:H:i',
-        'total' => 'float',
-        'status' => AppointmentStatusEnum::class, // Example: use Enum for status
     ];
 
-    // Relationships
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -56,48 +49,19 @@ class Appointment extends Model
         return $this->belongsTo(Employee::class);
     }
 
-    // Scopes
-    public function scopeByStatus($query, $status)
-    {
-        return $query->where('status', $status);
-    }
 
-    public function scopeByUser($query, $userId)
-    {
-        return $query->where('user_id', $userId);
-    }
 
-    // Accessors and Mutators
-    public function getFullNameAttribute()
-    {
-        return $this->first_name . ' ' . ($this->last_name ?? '');
-    }
 
-    public function setDateAttribute($value)
-    {
-        $this->attributes['date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
-    }
-
-    // Boot Method
     static function boot()
     {
         parent::boot();
 
         static::creating(function ($appointment) {
-            // Generate a unique appointment code
-            $latestAppointment = static::latest('id')->first();
-            $nextId = $latestAppointment ? $latestAppointment->id + 1 : 1;
-            $appointment->appointment_code = 'APP-' . str_pad($nextId, 6, '0', STR_PAD_LEFT);
-        });
+            // a readable unique code for the appointment, including the id in the code
+            $appointment->appointment_code = 'APP-'.  ($appointment->count() + 1) ;
 
-        static::updated(function ($appointment) {
-            if ($appointment->isDirty('status')) {
-                // Logic for status change
-            }
-        });
-
-        static::deleted(function ($appointment) {
-            // Cleanup or notification logic on delete
         });
     }
+
+
 }
