@@ -51,8 +51,8 @@
         @error('newEmployee.date_started') <span class="text-red-500">{{ $message }}</span>@enderror
         </div>
 
-    <div class="sm:col-span-2">
-        <div class="inline">
+    <div class="sm:col-span-3">
+        <div class="flex flex-inline">
             <label>Select Working Days:</label>
             @foreach($allDays as $day)
                 <div>
@@ -69,7 +69,13 @@
             <textarea id="address" wire:model="newEmployee.address"  class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"></textarea>
             @error('newEmployee.address') <span class="text-red-500">{{ $message }}</span>@enderror
         </div>
+
     </div>
+    <div>
+            <label for="is_hidden" class="block text-sm font-medium text-gray-700">Is Hidden</label>
+            <input type="checkbox" wire:model="newEmployee.is_hidden" id="is_hidden">
+            @error('newEmployee.is_hidden') <span class="text-red-500">{{ $message }}</span>@enderror
+        </div>
     <div class="grid gap-4 mb-4 sm:grid-cols-1">
 
 
@@ -85,10 +91,6 @@
             @endif
         </div>
 
-        <div>
-            <label for="is_hidden" class="block text-sm font-medium text-gray-700">Is Hidden</label>
-            <input type="checkbox" wire:model="newEmployee.is_hidden" id="is_hidden">
-            @error('newEmployee.is_hidden') <span class="text-red-500">{{ $message }}</span>@enderror
-        </div>
+       
     </div>
 </div>
