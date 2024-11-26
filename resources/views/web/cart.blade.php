@@ -1,38 +1,7 @@
 <x-app-layout>
     <div class="bg-gray-100 py-8"
     x-data="{
-        showCheckoutConfirmation: false,
-        showRemoveConfirmation: false,
-        cartServiceId: null,
-        payMethod: '',
-        proofOfPayment: null,
-        referenceNumber: '',
-        showError: false,
-        validateAndSubmit() {
-            if (!this.payMethod) {
-                this.showError = 'Please select a payment method.';
-                return;
-            }
-            if (this.payMethod === 'gcash') {
-                if (!this.proofOfPayment) {
-                    this.showError = 'Please upload proof of payment.';
-                    return;
-                }
-                if (!this.referenceNumber || this.referenceNumber.length !== 4) {
-                    this.showError = 'Please provide a valid 4-digit reference number.';
-                    return;
-                }
-            }
-            this.showError = false;
-            $refs.checkoutForm.submit();
-        },
-        resetModal() {
-            this.payMethod = '';
-            this.proofOfPayment = null;
-            this.referenceNumber = '';
-            this.showError = false;
-        }
-    }"
+        showCheckoutConfirmation: false }"
 >
    <div class="container mx-auto px-4 md:w-11/12">
             <h1 class="text-2xl font-semibold mb-4">Cart</h1>
