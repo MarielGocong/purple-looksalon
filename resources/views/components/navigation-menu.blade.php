@@ -199,8 +199,11 @@
                 {{ __('Services') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                {{ __('Sign In') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                {{ __('Register') }}
             </x-responsive-nav-link>
             @if($userRole == 'Employee')
             <x-responsive-nav-link href="{{ route('manageservices') }}" :active="request()->routeIs('manageservices')">

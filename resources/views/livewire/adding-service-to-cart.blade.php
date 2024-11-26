@@ -55,7 +55,7 @@
 
         <!-- Employee Selection -->
         <div class="mt-5">
-            <h4 class="text-lg font-semibold text-gray-900">Select Employee</h4>
+            <h4 class="text-lg font-semibold text-gray-900">Select Staff</h4>
             @if ($errorMessage)
             <div class="border border-red-500 text-center p-4 bg-red-100 text-red-700 mt-4">
                 {{ $errorMessage }}
