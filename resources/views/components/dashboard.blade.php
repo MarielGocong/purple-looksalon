@@ -46,7 +46,7 @@
                               <div class="text-sm font-light tracking-wide text-gray-500">CRM Manage</div>
                             </div>
                           </li>
-                          @if(Auth::user()->role_id == 1 )
+                          
                           <li>
                             <a href="{{ route('manageusers') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
                             {{ request()->is('dashboard/manage/users') ? 'bg-gray-100 border-purple-500 text-gray-900 font-semibold' : '' }}
@@ -58,10 +58,6 @@
 
                             </a>
                           </li>
-
-
-
-                          @endif
 
                         <li>
                             <a href="{{ route('manageappointments') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-purple-500 pr-6
