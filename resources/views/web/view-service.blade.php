@@ -34,7 +34,7 @@
                     <section aria-labelledby="information-heading" class="mt-2">
                         <h3 id="information-heading" class="sr-only">Product information</h3>
 
-                        <p class="text-2xl text-gray-900">PHP {{ number_format($service->price, 2, '.', ',') }}
+                        <p class="text-2xl text-gray-900">₱ {{ number_format($service->price, 2, '.', ',') }}
                         </p>
 
 
@@ -154,37 +154,7 @@
                                         </tbody>
                                     </table>
 
-                                    <div>
-                                        <h2 class="font-medium text-md my-2">Most Popular Time Slots Last Week</h2>
-                                        <table class="border-collapse w-full">
-                                            <thead>
-                                            <tr>
-                                                <th class="border p-2">Time Slot</th>
-                                                <th class="border p-2">Count</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-
-
-                                    </div>
-
-                                    <div>
-                                        <h2 class="font-medium text-md my-2">Most Popular Time Slots</h2>
-                                        <table class="border-collapse w-full">
-                                            <thead>
-                                            <tr>
-                                                <th class="border p-2">Time Slot</th>
-                                                <th class="border p-2">Count</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                           
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                   
 
 
 
