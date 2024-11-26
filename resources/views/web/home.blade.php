@@ -2,7 +2,7 @@
   <x-slot name="mainLogoRoute">
     {{ route('home') }}
   </x-slot>
-dasdadasdasdas
+
 
     <div class="relative">
         {{-- <img class="w-full" src="{{ asset('images\banner-salon.png') }}" alt="Banner image"> --}}
@@ -327,27 +327,7 @@ class="relative bg-cover bg-center bg-no-repeat " style="background-image: url({
     </section>
 
 
-    <section class="mb-12" id="offer-banner">
 
-      <div class="bg-salonPurple alert alert-dismissible fade show fixed bottom-0 right-0 left-0 z-[1030] w-full py-4 px-6 text-white md:flex justify-between items-center text-center md:text-left">
-        <div class="mb-4 md:mb-0 flex items-center flex-wrap justify-center md:justify-start">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-4 h-4 mr-2">
-            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
-            <path fill="currentColor" d="M216 23.86c0-23.8-30.65-32.77-44.15-13.04C48 191.85 224 200 224 288c0 35.63-29.11 64.46-64.85 63.99-35.17-.45-63.15-29.77-63.15-64.94v-85.51c0-21.7-26.47-32.23-41.43-16.5C27.8 213.16 0 261.33 0 320c0 105.87 86.13 192 192 192s192-86.13 192-192c0-170.29-168-193-168-296.14z"/>
-          </svg>
-          <strong class="mr-1">Limited offer!</strong> Get massive discounts now before it's to late
-        </div>
-        <div class="flex items-center justify-center">
-          <a class="inline-block px-6 py-2.5 bg-white text-gray-700 font-semibold text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-100 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-200 active:shadow-lg transition duration-150 ease-in-out mr-4" href="#" role="button" data-mdb-ripple="true" data-mdb-ripple-color="light">Claim offer</a>
-
-
-          <div class="text-white" data-bs-dismiss="alert" aria-label="Close" id="offer-banner-close">
-            <svg class="w-4 h-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
-          </div>
-        </div>
-      </div>
-
-    </section>
     <!-- Footer container -->
 <footer
 class="bg-salonPurple text-center text-neutral-100 lg:text-left">
@@ -455,8 +435,8 @@ class="bg-salonPurple text-center text-neutral-100 lg:text-left">
         Services
       </h6>
       <p class="mb-4">
-        <a href="#!" class="text-white dark:text-neutral-200"
-          >Hair</a
+        <p class="text-white dark:text-neutral-200"
+          >Hair</
         >
       </p>
       <p class="mb-4">
@@ -482,18 +462,23 @@ class="bg-salonPurple text-center text-neutral-100 lg:text-left">
        Branches
       </h6>
       <p class="mb-4">
-        <a href="#!" class="text-neutral-600 dark:text-neutral-200"
-          >Special Offers</a
+        <a href="#!" class="text-white dark:text-neutral-200"
+          >Sub Branch</a
         >
       </p>
       <p class="mb-4">
-        <a href="#!" class="text-neutral-600 dark:text-neutral-200"
-          >Loyalty Program</a
+        <a href="#!" class="text-white dark:text-neutral-200"
+          >Queen's Row Branch</a
         >
       </p>
       <p class="mb-4">
-        <a href="#!" class="text-neutral-600 dark:text-neutral-200"
-          >Loyalty teirs</a
+        <a href="#!" class="text-white dark:text-neutral-200"
+          >Molino IV Branch</a
+        >
+      </p>
+      <p class="mb-4">
+        <a href="#!" class="text-white dark:text-neutral-200"
+          >Camella Springville Branch</a
         >
       </p>
 
@@ -512,12 +497,6 @@ class="bg-salonPurple text-center text-neutral-100 lg:text-left">
   >
 </div>
 </footer>
-<script>
-  // hide offer-banner when user clicks on close
-  document.getElementById("offer-banner-close").addEventListener("click", function() {
-    document.getElementById("offer-banner").style.display = "none";
-  });
 
-</script>
 
 </x-app-layout>
