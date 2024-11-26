@@ -27,7 +27,6 @@ use App\Http\Controllers\SalesReportController;
 
 //Route::get('/test', [App\Http\Controllers\AdminDashboardHome::class, 'index'])->name('test');
 
-
 Route::get('/', [App\Http\Controllers\HomePageController::class, 'index'])->name('home');
 
 Route::get('/about',[App\Http\Controllers\DisplayAbout::class, 'about'])->name('about');
@@ -36,16 +35,16 @@ Route::get('/contact', [App\Http\Controllers\DisplayContact::class, 'index'])->n
 Route::post('/contact/store', [App\Http\Controllers\DisplayContact::class, 'storeContact'])->name('contact.store');
 
 Route::get('/services', [App\Http\Controllers\DisplayService::class, 'index'])->name('services');
-
-//Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/services/{slug}', [App\Http\Controllers\DisplayService::class, 'show'])->name('view-service');
-//});
 
 // Route::get('/services/{id}', [App\Http\Controllers\ServiceDisplay::class, 'show'])->name('services.show');
 Route::get('/deals', [App\Http\Controllers\DisplayDeal::class, 'index'])->name('deals');
 Route::get('/deals/apply/{deal}', [App\Http\Controllers\DisplayDeal::class, 'showServices'])->name('showServices');
 
-
+Route::get('/test-pdf', function () {
+    $pdf = PDF::loadHTML('<h1>Test PDF</h1>');
+    return $pdf->download('test.pdf');
+});
 
 
 
@@ -64,16 +63,7 @@ Route::middleware([
         ])->group(function () {
 
             Route::prefix('manage')->group( function () {
-                Route::resource('users', UserController::class)->names([
-                    'index' => 'manageusers',         // GET /users (index)
-                    'store' => 'manageusers.store',   // POST /users (store)
-                    'create' => 'manageusers.create', // GET /users/create (create)
-                    'edit' => 'manageusers.edit',     // GET /users/{id}/edit (edit)
-                    'update' => 'manageusers.update', // PUT /users/{id} (update)
-                    'destroy' => 'manageusers.destroy'// DELETE /users/{id} (destroy)
-                ]);
-                Route::put('users/{id}/suspend', [UserSuspensionController::class, 'suspend'])->name('manageusers.suspend');
-                Route::put('users/{id}/activate', [UserSuspensionController::class, 'activate'])->name('manageusers.activate');
+                
 
                 Route::get('/dashboard/manage/contact', [DisplayContact::class, 'contact'])->name('managecontact');
 
@@ -102,6 +92,17 @@ Route::middleware([
         Route::middleware([
             'validateRole:Admin,Employee'
         ])->group(function () {
+
+            Route::resource('users', UserController::class)->names([
+                'index' => 'manageusers',         // GET /users (index)
+                'store' => 'manageusers.store',   // POST /users (store)
+                'create' => 'manageusers.create', // GET /users/create (create)
+                'edit' => 'manageusers.edit',     // GET /users/{id}/edit (edit)
+                'update' => 'manageusers.update', // PUT /users/{id} (update)
+                'destroy' => 'manageusers.destroy'// DELETE /users/{id} (destroy)
+            ]);
+            Route::put('users/{id}/suspend', [UserSuspensionController::class, 'suspend'])->name('manageusers.suspend');
+            Route::put('users/{id}/activate', [UserSuspensionController::class, 'activate'])->name('manageusers.activate');
 
 
             Route::post('/notifications/mark-as-read/{id}', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
@@ -220,10 +221,7 @@ Route::middleware([
             Route::prefix('customer')->group( function () {
                 Route::get('/', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
                 Route::post('/', [App\Http\Controllers\CartController::class, 'store'])->name('cart.store');
-
-                Route::delete('customer/cart/remove-item/{cart_service_id}', [App\Http\Controllers\CartController::class, 'removeItem'])->name('cart.remove-item');
-
-
+                Route::delete('/item/{cart_service_id}', [App\Http\Controllers\CartController::class, 'removeItem'])->name('cart.remove-item');
                 Route::delete('/{id}', [App\Http\Controllers\CartController::class, 'destroy'])->name('cart.destroy');
                 Route::post('/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name('cart.checkout');
 
