@@ -56,11 +56,6 @@
         <!-- Employee Selection -->
         <div class="mt-5">
             <h4 class="text-lg font-semibold text-gray-900">Select Employee</h4>
-            @if ($errorMessage)
-            <div class="border border-red-500 text-center p-4 bg-red-100 text-red-700 mt-4">
-                {{ $errorMessage }}
-            </div>
-        @endif
             <fieldset class="mt-2">
                 <legend class="sr-only">Select an Employee</legend>
                 <div class="grid grid-cols-3 gap-4" x-data="{ selectedEmployee : @entangle('selectedEmployee').defer }">
@@ -80,9 +75,6 @@
                                            aria-labelledby="employee-choice-{{ $employee->id }}-label">
                                     <span id="employee-choice-{{ $employee->id }}-label">
                                         {{ $employee->first_name }}
-                                        <span>
-                                            {{ $employee->job_category?->name }}
-                                            </span>
                                     </span>
                                     <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                                 </label>
@@ -94,9 +86,6 @@
                                            aria-labelledby="employee-choice-{{ $employee->id }}-label">
                                     <span id="employee-choice-{{ $employee->id }}-label">
                                         {{ $employee->first_name }}
-                                        <span>
-                                        {{ $employee->job_category?->name }}
-                                        </span>
                                     </span>
                                     <span aria-hidden="true"
                                           class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
@@ -109,7 +98,6 @@
                             @endif
                         </div>
                     @endforeach
-
                 </div>
             </fieldset>
         </div>
