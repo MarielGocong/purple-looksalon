@@ -27,9 +27,8 @@ use App\Http\Controllers\SalesReportController;
 
 //Route::get('/test', [App\Http\Controllers\AdminDashboardHome::class, 'index'])->name('test');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+
     Route::get('/', [App\Http\Controllers\HomePageController::class, 'index'])->name('home');
-});
 
 Route::get('/about',[App\Http\Controllers\DisplayAbout::class, 'about'])->name('about');
 
@@ -37,16 +36,16 @@ Route::get('/contact', [App\Http\Controllers\DisplayContact::class, 'index'])->n
 Route::post('/contact/store', [App\Http\Controllers\DisplayContact::class, 'storeContact'])->name('contact.store');
 
 Route::get('/services', [App\Http\Controllers\DisplayService::class, 'index'])->name('services');
+
+//Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/services/{slug}', [App\Http\Controllers\DisplayService::class, 'show'])->name('view-service');
+//});
 
 // Route::get('/services/{id}', [App\Http\Controllers\ServiceDisplay::class, 'show'])->name('services.show');
 Route::get('/deals', [App\Http\Controllers\DisplayDeal::class, 'index'])->name('deals');
 Route::get('/deals/apply/{deal}', [App\Http\Controllers\DisplayDeal::class, 'showServices'])->name('showServices');
 
-Route::get('/test-pdf', function () {
-    $pdf = PDF::loadHTML('<h1>Test PDF</h1>');
-    return $pdf->download('test.pdf');
-});
+
 
 
 

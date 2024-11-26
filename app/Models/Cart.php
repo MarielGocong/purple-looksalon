@@ -27,8 +27,13 @@ class Cart extends Model
     {
         return $this
             ->belongsToMany(Service::class)
-            ->withPivot('id', 'employee_id' ,'date','time', 'first_name',  'price');
+            ->withPivot('id', 'employee_id', 'date', 'time', 'first_name', 'price', 'is_for_confirmation');
     }
+
+    public function forConfirmationServices()
+{
+    return $this->services()->wherePivot('is_for_confirmation', true);
+}
 
     protected static function booted()
     {

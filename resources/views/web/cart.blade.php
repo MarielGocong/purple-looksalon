@@ -1,6 +1,40 @@
 <x-app-layout>
-    <div class="bg-gray-100 py-8" x-data="{ showCheckoutConfirmation: false, payWithCash: false, isSubmitting: false, showAlert: true }">
-        <div class="container mx-auto px-4 md:w-11/12">
+    <div class="bg-gray-100 py-8"
+    x-data="{
+        showCheckoutConfirmation: false,
+        showRemoveConfirmation: false,
+        cartServiceId: null,
+        payMethod: '',
+        proofOfPayment: null,
+        referenceNumber: '',
+        showError: false,
+        validateAndSubmit() {
+            if (!this.payMethod) {
+                this.showError = 'Please select a payment method.';
+                return;
+            }
+            if (this.payMethod === 'gcash') {
+                if (!this.proofOfPayment) {
+                    this.showError = 'Please upload proof of payment.';
+                    return;
+                }
+                if (!this.referenceNumber || this.referenceNumber.length !== 4) {
+                    this.showError = 'Please provide a valid 4-digit reference number.';
+                    return;
+                }
+            }
+            this.showError = false;
+            $refs.checkoutForm.submit();
+        },
+        resetModal() {
+            this.payMethod = '';
+            this.proofOfPayment = null;
+            this.referenceNumber = '';
+            this.showError = false;
+        }
+    }"
+>
+   <div class="container mx-auto px-4 md:w-11/12">
             <h1 class="text-2xl font-semibold mb-4">Cart</h1>
 
             <!-- Success Message -->
@@ -134,97 +168,40 @@
         </div>
 
         <!-- Checkout Confirmation Modal -->
-        <div x-show="showCheckoutConfirmation" x-cloak class="fixed inset-0 overflow-y-auto z-50 flex items-center justify-center">
-            <div class="fixed inset-0 transition-opacity -z-10" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <div class="bg-white rounded-lg p-4 max-w-md mx-auto items-center" @click.outside="showCheckoutConfirmation = false">
-                <h2 class="text-xl font-semibold">Confirm Appointment</h2>
-                <p>Are you sure you want to confirm your appointment?</p>
-
-                <!-- Payment Method Selection -->
-                <div class="flex items-center mb-4">
-                    <input
-                        id="cash-radio"
-                        type="radio"
-                        x-model="payMethod"
-                        value="cash"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                    <label for="cash-radio" class="ms-2 text-sm font-medium text-gray-900">Pay with Cash</label>
-
-                    <input
-                        id="gcash-radio"
-                        type="radio"
-                        x-model="payMethod"
-                        value="gcash"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 ml-4">
-                    <label for="gcash-radio" class="ms-2 text-sm font-medium text-gray-900">Pay with GCash</label>
-                </div>
-
-                <!-- Conditional Form Fields for GCash -->
-                <template x-if="payMethod === 'gcash'">
-                    <div>
-                        <p>You can also pay via GCash. Scan the QR code below:</p>
-                        <img class="w-36 h-36" src="{{ asset('images/qr.jpg') }}" alt="GCash QR Code">
-                        <p class="mt-2">Upload proof of payment and the last 4 digits of the reference number:</p>
-                        <div class="col-span-6 sm:col-span-4 my-2">
-                            <label for="proof_pic">Proof of Payment:</label>
-                            <input type="file" id="proof_pic" name="proof_pic" accept="image/*" class="mt-1 block w-full" required>
-                            @error('proof_pic')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="col-span-6 sm:col-span-4 my-2">
-                            <label for="reference_number">Last Four Digits:</label>
-                            <input
-                                type="text"
-                                id="reference_number"
-                                name="reference_number"
-                                pattern="\d{4}"
-                                maxlength="4"
-                                class="mt-1 block w-full"
-                                required>
-                            @error('reference_number')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+        <div x-show="showCheckoutConfirmation" x-cloak class="fixed inset-0 flex items-center justify-center z-50">
+            <div class="bg-gray-500 opacity-75 absolute inset-0"></div>
+            <div class="bg-white rounded-lg p-6 max-w-md mx-auto relative">
+                <h2 class="text-xl font-semibold mb-2">Confirm Appointment</h2>
+                <p class="mb-4">Are you sure you want to confirm your appointment?</p>
+                <form action="{{ route('cart.checkout') }}" method="POST" enctype="multipart/form-data" x-ref="checkoutForm">
+                    @csrf
+                    <label class="block mb-2">
+                        <input type="radio" name="pay_method" value="cash" x-model="payMethod">
+                        Pay with Cash
+                    </label>
+                    <label class="block mb-4">
+                        <input type="radio" name="pay_method" value="gcash" x-model="payMethod">
+                        Pay with GCash
+                    </label>
+                    <div x-show="payMethod === 'gcash'" class="mb-4">
+                        <label class="block mb-2">Proof of Payment:</label>
+                        <input type="file" name="proof_of_payment" accept="image/*" x-on:change="proofOfPayment = $event.target.files[0]">
+                        <label class="block mb-2">Reference Number:</label>
+                        <input type="text" name="reference_number" maxlength="4" pattern="\d{4}" x-model="referenceNumber">
                     </div>
-                </template>
-
-                <div class="mt-4 flex justify-end space-x-4">
-                    <button @click="showCheckoutConfirmation = false" class="px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none">
-                        Cancel
-                    </button>
-                    <form action="{{ route('cart.checkout') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="pay_method" x-bind:value="payMethod">
-                        <!-- Include proof of payment file if paying with GCash -->
-                        <template x-if="payMethod === 'gcash'">
-                            <input type="hidden" name="proof_pic" x-bind:value="$refs.proof_pic.files[0]?.name">
-                            <input type="hidden" name="reference_number" x-bind:value="reference_number">
-                        </template>
-
-                        <button
-                            type="submit"
-                            class="px-4 py-2 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md hover:bg-purple-700 focus:outline-none"
-                            :disabled="payMethod === 'gcash' && (!proof_pic || !reference_number)">
+                    <p x-show="showError" class="text-red-500 text-sm mb-4" x-text="showError"></p>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" @click="showCheckoutConfirmation = false; resetModal()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded">
+                            Cancel
+                        </button>
+                        <button type="button" @click="validateAndSubmit()" class="bg-blue-500 text-white px-4 py-2 rounded">
                             Confirm
                         </button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-
-        <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('checkoutConfirmation', () => ({
-                    showCheckoutConfirmation: false,
-                    payMethod: 'cash', // Default to cash
-                    proof_pic: null,
-                    reference_number: '',
-                }));
-            });
-        </script>
-
+        </div>
+    </div>
 
 
     </div>

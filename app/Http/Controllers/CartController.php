@@ -49,95 +49,68 @@ class CartController extends Controller
     }
 
     public function checkout(Request $request)
-{
-    // Validate inputs
-    $request->validate([
-        'proof_of_payment' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for proof of payment (if provided)
-        'reference_number' => 'nullable|digits:4', // Validation for reference number (if provided)
-        'pay_with_cash' => 'required|boolean', // Ensure that the cash payment option is selected
-    ]);
+    {
+        // Validate payment
+        $request->validate([
+            'pay_method' => 'required|in:cash,gcash',
+            'proof_of_payment' => 'required_if:pay_method,gcash|file|mimes:jpeg,png,jpg,gif|max:2048',
+            'reference_number' => 'required_if:pay_method,gcash|digits:4',
+        ]);
 
-    // Get the user's cart that is not paid
-    $cart = auth()->user()->cart()->where('is_paid', false)->first();
+        // Retrieve cart with items for confirmation
+        $cart = auth()->user()->cart()->with(['forConfirmationServices'])->where('is_paid', false)->first();
 
-    // If no cart exists or the cart is already paid, redirect back
-    if (!$cart) {
-        return redirect()->back()->with('error', 'No unpaid cart found or the cart is already paid.');
-    }
+        if (!$cart || $cart->forConfirmationServices->isEmpty()) {
+            return redirect()->back()->with('error', 'No items marked for confirmation in your cart.');
+        }
 
-    // Handle file upload for proof of payment if available
-    $proofPath = null;
-    if ($request->hasFile('proof_of_payment')) {
-        $proofPath = $request->file('proof_of_payment')->store('proofs', 'public');
-    }
+        // Handle GCash payment proof
+        $proofPath = null;
+        if ($request->pay_method === 'gcash') {
+            $proofPath = $request->file('proof_of_payment')->store('proofs', 'public');
+        }
 
-    // Check employee availability for each service in the cart
-    $is_employees_available = true;
-    $unavailable_employees = collect();
+        // Start transaction
+        DB::beginTransaction();
 
-    foreach ($cart->services as $service) {
-        $is_available = DB::table('appointments')
-            ->where('date', $service->pivot->date)
-            ->where('time', $service->pivot->time)
-            ->where('employee_id', $service->pivot->employee_id)
-            ->doesntExist();
+        try {
+            // Confirm services
+            foreach ($cart->forConfirmationServices as $service) {
+                Appointment::create([
+                    'cart_id' => $cart->id,
+                    'user_id' => $cart->user_id,
+                    'service_id' => $service->id,
+                    'time' => $service->pivot->time,
+                    'date' => $service->pivot->date,
+                    'first_name' => $service->pivot->first_name,
+                    'employee_id' => $service->pivot->employee_id,
+                    'total' => $service->pivot->price,
+                    'pay_method' => $request->pay_method,
+                    'proof_of_payment' => $proofPath,
+                    'reference_number' => $request->reference_number,
+                ]);
+            }
 
-        if (!$is_available) {
-            $is_employees_available = false;
+            // Unmark or remove confirmed services
+            $cart->services()->updateExistingPivot(
+                $cart->forConfirmationServices->pluck('id')->toArray(),
+                ['is_for_confirmation' => false]
+            );
 
-            $first_name = DB::table('employees')->where('id', $service->pivot->employee_id)->value('first_name');
-            $service_name = $service->name;
+            // If no more items are for confirmation, mark cart as paid
+            if ($cart->services()->wherePivot('is_for_confirmation', true)->count() === 0) {
+                $cart->update(['is_paid' => true]);
+            }
 
-            $unavailable_employees->push([
-                'service_name' => $service_name,
-                'date' => $service->pivot->date,
-                'time' => $service->pivot->time,
-                'first_name' => $first_name,
-            ]);
+            // Commit transaction
+            DB::commit();
+
+            return redirect()->route('customerview')->with('success', 'Selected services have been confirmed.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Checkout error: ' . $e->getMessage());
+            return back()->with('error', 'An error occurred while confirming your services.');
         }
     }
 
-    // If there are unavailable employees, return an error message
-    if (!$is_employees_available) {
-        return redirect()->back()->with('unavailable_employees', $unavailable_employees);
-    }
-
-    // Create appointments for each service in the cart
-    foreach ($cart->services as $service) {
-        Appointment::create([
-            'cart_id' => $cart->id,
-            'user_id' => $cart->user_id,
-            'service_id' => $service->id,
-            'time' => $service->pivot->time,
-            'date' => $service->pivot->date,
-            'employee_id' => $service->pivot->employee_id,
-            'total' => $service->pivot->price,
-            'proof_of_payment' => $proofPath, // Store the path to the proof of payment if provided
-            'reference_number' => $request->reference_number, // Store the reference number
-            'pay_with_cash' => $request->pay_with_cash, // Store payment method (cash or GCash)
-        ]);
-    }
-
-    // Mark the cart as paid
-    $cart->is_paid = true;
-    $cart->save();
-
-    // Dispatch confirmation emails to the user
-    foreach ($cart->appointments as $appointment) {
-        SendAppointmentConfirmationMailJob::dispatch(auth()->user(), $appointment);
-    }
-
-    // Notify admins (those with the role 'Admin' or 'Employee')
-    $admins = User::whereHas('role', function ($query) {
-        $query->whereIn('name', ['Admin', 'Employee']);
-    })->get();
-
-    foreach ($admins as $admin) {
-        // Send a notification to each admin about the new appointment
-        $admin->notify(new NewAppointmentNotification($appointment));
-    }
-
-    // Redirect the user with a success message
-    return redirect()->route('customerview')->with('success', 'Your appointment has been booked successfully.');
-}
 }

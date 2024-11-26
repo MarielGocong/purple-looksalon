@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('appointments', function (Blueprint $table) {
-            $table->boolean('pay_with_cash');
-            $table->string('proof_pic')->nullable();
-            $table->string('reference_number', 4)->nullable();
+            $table->string('pay_method');
         });
     }
 
@@ -24,9 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('appointments', function (Blueprint $table) {
-            $table->dropColumn('pay_with_cash');
-            $table->dropColumn('proof_pic');
-            $table->dropColumn('reference_number');
+            $table->dropColumn('pay_method');
         });
     }
 };
