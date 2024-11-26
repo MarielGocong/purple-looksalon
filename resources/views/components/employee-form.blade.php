@@ -1,4 +1,4 @@
-<div class="grid gap-4 mb-4 sm:grid-cols-2">
+<div class="grid gap-4 mb-4 sm:grid-cols-3">
     <div>
         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name:</label>
         <input type="text" wire:model="newEmployee.first_name" id="first_name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm">
@@ -7,7 +7,7 @@
     <div>
         <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name:</label>
         <input type="text" wire:model="newEmployee.last_name" id="last_name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm">
-        @error('newEmployee.last_name') <span class="text-red-500">{{ $message }}</span>@enderror
+        @error('newEmployee.last_aname') <span class="text-red-500">{{ $message }}</span>@enderror
     </div>
     <div>
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email:</label>
@@ -51,7 +51,7 @@
         @error('newEmployee.date_started') <span class="text-red-500">{{ $message }}</span>@enderror
         </div>
 
-    <div class="sm:col-span-2">
+    <div class="sm:col-span-3">
         <div>
             <label>Select Working Days:</label>
             @foreach($allDays as $day)
